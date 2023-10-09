@@ -9,9 +9,9 @@ class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, unique=True)
-    username = db.Column(db.String, unique=True)
-    _password_hash = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -20,6 +20,38 @@ class User(db.Model, SerializerMixin):
     gamelists = db.Relationship("GameList", backref="user", cascade="all, delete-orphan")
 
     serialize_rules = ("-reviews.user",)
+
+    @validates("email")
+    def validate_email(self, db_column, email):
+        if "@" not in email:
+            raise ValueError("Email must contain @.")
+        elif User.query.filter(User.email == email).first():
+            raise ValueError("A user with this email address already exists.")
+        return email
+
+    @validates("username")
+    def validate_username(self, db_column, username):
+        if not 6 <= len(username) <= 20:
+            raise ValueError("Username must be between 6 and 20 characters.")
+        elif User.query.filter(User.username == username).first():
+            raise ValueError("A user with this username already exists.")
+        else:
+            return username
+
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("Password hashes may not be viewed.")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        if not len(password) >= 8:
+            raise ValueError("Password must contain 8 or more characters.")
+
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
+        self._password_hash = password_hash.decode("utf-8")
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
 
 
 class Review(db.Model, SerializerMixin):
@@ -73,14 +105,20 @@ class GameList(db.Model, SerializerMixin):
 
     serialize_rules = ("-gamelist_items.gamelist",)
 
+    @validates("name")
+    def validate_name(self, db_column, name):
+        if not len(name) >= 1:
+            raise ValueError("List name must be at least 1 character long.")
+        return name
+
 
 class GameListItem(db.Model, SerializerMixin):
     __tablename__ = "gamelist_items"
 
     id = db.Column(db.Integer, primary_key=True)
+    currently_playing = db.Column(db.Boolean)
     played = db.Column(db.Boolean)
     finished = db.Column(db.Boolean)
-    currently_playing = db.Column(db.Boolean)
     date_started = db.Column(db.String)
     date_finished = db.Column(db.String)
     endless = db.Column(db.Boolean)
