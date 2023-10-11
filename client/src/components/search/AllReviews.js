@@ -3,7 +3,7 @@ import React from "react";
 function AllReviews() {
     return (
         <>
-            <h1>AllReviews</h1>
+            <h1>All Reviews</h1>
         </>
     )
 }

@@ -15,12 +15,13 @@ function List() {
             }
         })
     }, [])
-    
+
     return (
         <>
+            <h1>This is a list.</h1>
             {listGames.map((game) => (
                 <GamePreview 
-                key={game.id}
+                key={game.api_id}
                 {...game}
                 />
             ))}

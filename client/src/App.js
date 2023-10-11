@@ -19,13 +19,7 @@ function App() {
         <Route path="/search">
           <Search />
         </Route>
-        <Route path="/search/all-games">
-          <AllGames />
-        </Route>
-        <Route path="/search/all-reviews">
-          <AllReviews />
-        </Route>
-        <Route path="/games/:id">
+        <Route path="/games/:api_id">
           <Game />
         </Route>
         <Route path="/reviews/:id">
