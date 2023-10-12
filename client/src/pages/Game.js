@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
+import ReviewForm from "../components/ReviewForm";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
@@ -99,12 +100,6 @@ function Game() {
     const gamelist_options = userLists.map((list) => (
         <option value={list.id} name={list.name}>{list.name}</option>
     ))
-
-    function handleSubmitReview(e) {
-        e.preventDefault()
-        setWriteReview(!writeReview)
-        
-    }
             
     return (
         <>            
@@ -112,23 +107,14 @@ function Game() {
 
             <form onSubmit={(e) => handleCreateListItem(e)}>
                 <label htmlFor="lists">Choose a list:</label>
-                <select name="lists" id="lists" onChange={(e) => setListSelection(e.target.value)}>
+                <select onChange={(e) => setListSelection(e.target.value)}>
                     {gamelist_options}
                 </select>
                 <button type="submit">Add to List</button>
             </form>
 
-            {writeReview
-            ?
-            <form>
-                <textarea placeholder="Review here..."></textarea>
-                <button type="submit" onClick={(e) => handleSubmitReview(e)}>Submit Review</button>
-            </form>
-            :
-            <button onClick={() => setWriteReview(!writeReview)}>Write a Review</button>
-            }
+            {writeReview ? <ReviewForm game={game}/> : <button onClick={() => setWriteReview(!writeReview)}>Write a Review</button>}
             
-
             <img src={game.background_image} />
             <img src={game.background_image_additional} />
             <p dangerouslySetInnerHTML={{__html: game.description}}></p>

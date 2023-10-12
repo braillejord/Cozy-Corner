@@ -1,14 +1,27 @@
 import React, {useState, useEffect, useContext} from "react";
 import { UserContext } from "../context/UserContext";
 import ListPreview from "../components/previews/ListPreview";
+import ListForm from "../components/ListForm";
+import ReviewPreview from "../components/previews/ReviewPreview"
 
 function MyCorner() {
     const [lists, setLists] = useState([])
+    const [reviews, setReviews] = useState([])
     const [showListForm, setShowListForm] = useState(false)
     const [newListName, setNewListName] = useState("")
     const {user, setUser} = useContext(UserContext)
 
+    useEffect(() => {
+        fetch("/reviews")
+        .then(r => {
+            if (r.ok) {
+                r.json().then((reviews) => setReviews(reviews))
+            }
+        })
+    }, [])
+    
     function fetchLists() {
+        console.log("Fetching...")
         fetch('/lists')
         .then(r => {
             if (r.ok) {
@@ -17,7 +30,9 @@ function MyCorner() {
         })
     }
 
-    fetchLists()
+    console.log(reviews)
+
+    // fetchLists()
 
     function handleCreateNewList(e) {
         e.preventDefault()
@@ -47,10 +62,11 @@ function MyCorner() {
                 <h2>Lists</h2>
                 {showListForm
                 ?
-                <form onSubmit={handleCreateNewList}>
-                    <input placeholder="new list name" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
-                    <button type="submit">Create New List</button>
-                </form>
+                <ListForm 
+                newListName={newListName}
+                setNewListName={setNewListName}
+                handleCreateNewList={handleCreateNewList}
+                />
                 :
                 <button onClick={() => setShowListForm(true)}>Create New List</button>
                 }
@@ -63,6 +79,12 @@ function MyCorner() {
             </div>
             <div>
                 <h2>Reviews</h2>
+                {reviews.map((review) => (
+                    <ReviewPreview
+                    key={review.id}
+                    {...review}
+                    />
+                ))}
             </div>
         </>
     )
