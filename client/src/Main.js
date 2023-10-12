@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import {Route, Switch} from "react-router-dom";
-import { UserProvider } from "./context/UserContext";
 import NavBar from "./components/NavBar";
 import Logo from "./components/Logo";
 import Search from "./components/search/Search";
-import Game from "./components/pages/Game";
-import Review from "./components/pages/Review";
-import List from "./components/pages/List";
-import MyCorner from "./components/pages/MyCorner";
+import Game from "./pages/Game";
+import Review from "./pages/Review";
+import List from "./pages/List";
+import MyCorner from "./pages/MyCorner";
 
 function Main() {
     const [searchGames, setSearchGames] = useState(false)

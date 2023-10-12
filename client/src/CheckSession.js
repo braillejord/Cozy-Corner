@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { UserContext } from "./context/UserContext"
-import Login from "./components/pages/Login"
+import Login from "./pages/Login"
 import Main from "./Main"
 
 

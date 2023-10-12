@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../context/UserContext";
 
 function Game() {
     const [game, setGame] = useState([])
     const [userLists, setUserLists] = useState([])
+    const [listSelection, setListSelection] = useState(0)
+    const [writeReview, setWriteReview] = useState(false)
     const {api_id} = useParams();
     const {user, setUser} = useContext(UserContext)
 
@@ -67,26 +69,22 @@ function Game() {
     function handleCreateListItem(e) {
         e.preventDefault()
 
-        console.log(e)
-        console.log(e.target[0])
-        console.log(e.target.value)
-
-        // const item_data = {
-        //     api_id: game.id,
-        //     name: game.name,
-        //     image: game.background_image,
-        //     user_id: user.id,
-        //     list_name: "Owned"
-        // }
+        const item_data = {
+            api_id: game.id,
+            name: game.name,
+            image: game.background_image,
+            user_id: user.id,
+            list_id: listSelection
+        }
         
-        // fetch("/create-gamelist-item", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json",
-        //     },
-        //     body: JSON.stringify(item_data),
-        // })
+        fetch("/create-gamelist-item", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(item_data),
+        })
     }
 
     useEffect(() => {
@@ -102,30 +100,35 @@ function Game() {
         <option value={list.id} name={list.name}>{list.name}</option>
     ))
 
-    // set in state and send with submission
-    function handleListChange(e) {
-        console.log(e)
-        console.log(e.target)
-        console.log(e.target.value)
+    function handleSubmitReview(e) {
+        e.preventDefault()
+        setWriteReview(!writeReview)
+        
     }
             
     return (
-        <>
-            <h1>A Single Game</h1>
-
+        <>            
+            <p>Game Name: {game.name}</p>
 
             <form onSubmit={(e) => handleCreateListItem(e)}>
                 <label htmlFor="lists">Choose a list:</label>
-                <select name="lists" id="lists" onChange={(e) => handleListChange(e)}>
+                <select name="lists" id="lists" onChange={(e) => setListSelection(e.target.value)}>
                     {gamelist_options}
                 </select>
-                <button type="submit">Add to List</button> NEED TO SEND NAME OF LIST TO ADD TO.
+                <button type="submit">Add to List</button>
             </form>
 
+            {writeReview
+            ?
+            <form>
+                <textarea placeholder="Review here..."></textarea>
+                <button type="submit" onClick={(e) => handleSubmitReview(e)}>Submit Review</button>
+            </form>
+            :
+            <button onClick={() => setWriteReview(!writeReview)}>Write a Review</button>
+            }
+            
 
-
-
-            <p>Game Name: {game.name}</p>
             <img src={game.background_image} />
             <img src={game.background_image_additional} />
             <p dangerouslySetInnerHTML={{__html: game.description}}></p>

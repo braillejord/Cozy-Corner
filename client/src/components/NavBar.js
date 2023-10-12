@@ -16,9 +16,9 @@ function NavBar({setSearchGames}) {
         <>
             <h1>NavBar</h1>
             <NavLink to={"/"}>My Corner</NavLink>
-            <NavLink to={"/search/all-games"} onClick={setSearchGames(true)}>Games</NavLink>
-            <NavLink to={"/search/all-reviews"} onClick={setSearchGames(false)}>Reviews</NavLink>
-            <p>Hello {user ? user.username : "Anonymous"}</p>
+            <NavLink to={"/search/all-games"} onClick={() => setSearchGames(true)}>Games</NavLink>
+            <NavLink to={"/search/all-reviews"} onClick={() => setSearchGames(false)}>Reviews</NavLink>
+            <span>Hello {user ? user.username : "Anonymous"}</span>
             <NavLink to={"/login"}>
                 <button onClick={handleLogout}>Log Out</button>
             </NavLink>
