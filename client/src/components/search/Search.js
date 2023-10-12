@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import AllGames from "./AllGames";
 import AllReviews from "./AllReviews";
 
-function Search() {    
-    const [searchGames, setSearchGames] = useState(false)
-
+function Search({searchGames, setSearchGames}) {    
     return (
         <>
             <h1>Search</h1>

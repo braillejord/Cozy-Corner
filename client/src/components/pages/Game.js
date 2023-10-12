@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 function Game() {
     const [game, setGame] = useState([])
+    const [userLists, setUserLists] = useState([])
     const {api_id} = useParams();
+    const {user, setUser} = useContext(UserContext)
 
     useEffect(() => {
         fetch(`/games/${api_id}`)
@@ -61,29 +64,67 @@ function Game() {
         game_rating = game.esrb_rating.name
     }
 
-    function handleCreateListItem() {
-        const item_data = {
-            api_id: game.id,
-            name: game.name,
-            image: game.background_image,
-            // NEED TO SEND ID OF USER'S SPECIFIC LIST (OWNED, WISHLIST, BACKLOG, ETC.)
-        }
+    function handleCreateListItem(e) {
+        e.preventDefault()
+
+        console.log(e)
+        console.log(e.target[0])
+        console.log(e.target.value)
+
+        // const item_data = {
+        //     api_id: game.id,
+        //     name: game.name,
+        //     image: game.background_image,
+        //     user_id: user.id,
+        //     list_name: "Owned"
+        // }
         
-        fetch("/create-gamelist-item", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(item_data),
+        // fetch("/create-gamelist-item", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json",
+        //     },
+        //     body: JSON.stringify(item_data),
+        // })
+    }
+
+    useEffect(() => {
+        fetch(`/user/${user.id}`)
+        .then((r) => {
+            if (r.ok) {
+                r.json().then((lists) => setUserLists(lists))
+            }
         })
+    }, [])
+
+    const gamelist_options = userLists.map((list) => (
+        <option value={list.id} name={list.name}>{list.name}</option>
+    ))
+
+    // set in state and send with submission
+    function handleListChange(e) {
+        console.log(e)
+        console.log(e.target)
+        console.log(e.target.value)
     }
             
     return (
         <>
             <h1>A Single Game</h1>
-            This page will display a single game's information. You will need the id of this game to be the id that your API uses so you can make a fetch. It's making a request with your database's id right now.
-            <button onClick={() => handleCreateListItem()}>Add to List</button> THIS BUTTON NEEDS TO CREATE A GAMELIST_ITEM INSTANCE, WHICH WILL TIE IT TO THE LIST.
+
+
+            <form onSubmit={(e) => handleCreateListItem(e)}>
+                <label htmlFor="lists">Choose a list:</label>
+                <select name="lists" id="lists" onChange={(e) => handleListChange(e)}>
+                    {gamelist_options}
+                </select>
+                <button type="submit">Add to List</button> NEED TO SEND NAME OF LIST TO ADD TO.
+            </form>
+
+
+
+
             <p>Game Name: {game.name}</p>
             <img src={game.background_image} />
             <img src={game.background_image_additional} />
