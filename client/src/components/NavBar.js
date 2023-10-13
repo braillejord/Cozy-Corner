@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { UserContext } from "../context/UserContext";
 import { NavLink } from "react-router-dom";
 
-function NavBar({setSearchGames}) {
+function NavBar() {
     const {user, setUser} = useContext(UserContext)
 
     function handleLogout(e) {
@@ -16,8 +16,8 @@ function NavBar({setSearchGames}) {
         <>
             <h1>NavBar</h1>
             <NavLink to={"/"}>My Corner</NavLink>
-            <NavLink to={"/search/all-games"} onClick={() => setSearchGames(true)}>Games</NavLink>
-            <NavLink to={"/search/all-reviews"} onClick={() => setSearchGames(false)}>Reviews</NavLink>
+            <NavLink to={"/search-games"}>Games</NavLink>
+            <NavLink to={"/search-reviews"}>Reviews</NavLink>
             <span>Hello {user ? user.username : "Anonymous"}</span>
             <NavLink to={"/login"}>
                 <button onClick={handleLogout}>Log Out</button>

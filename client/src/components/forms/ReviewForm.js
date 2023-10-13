@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react";
-import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 import { Rating } from "react-simple-star-rating";
 
 function ReviewForm({game}) {
@@ -7,6 +8,7 @@ function ReviewForm({game}) {
     const [platformSelection, setPlatformSelection] = useState("")
     const [review, setReview] = useState("")
     const [writeReview, setWriteReview] = useState(false)
+    const history = useHistory()
     const {user, setUser} = useContext(UserContext)
 
     function handleSubmitReview(e) {
@@ -29,9 +31,9 @@ function ReviewForm({game}) {
             },
             body: JSON.stringify(review_obj),
         })
+        .then((r) => r.json()).then((review_id) => history.push(`/reviews/${review_id}`))
         .then(setWriteReview(!writeReview))
         .then(handleReset())
-        // .then(TAKE ME TO THE PAGE THE REVIEW IS ON)
     }
 
     function handleRating(rate) {

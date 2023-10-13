@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import ReviewForm from "../components/ReviewForm";
+import ReviewForm from "../components/forms/ReviewForm";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 

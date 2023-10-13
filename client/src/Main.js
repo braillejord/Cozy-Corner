@@ -1,27 +1,25 @@
-import React, {useState} from "react";
+import React from "react";
 import {Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Logo from "./components/Logo";
-import Search from "./components/search/Search";
+import AllGames from "./components/search/AllGames"
+import AllReviews from "./components/search/AllReviews"
 import Game from "./pages/Game";
 import Review from "./pages/Review";
 import List from "./pages/List";
 import MyCorner from "./pages/MyCorner";
 
 function Main() {
-    const [searchGames, setSearchGames] = useState(false)
-
     return (
         <>
-            <NavBar 
-            setSearchGames={setSearchGames}/>
+            <NavBar />
             <Logo />
             <Switch>
-                <Route path="/search">
-                    <Search 
-                    searchGames={searchGames}
-                    setSearchGames={setSearchGames}
-                    />
+                <Route path="/search-games">
+                    <AllGames />
+                </Route>
+                <Route path="/search-reviews">
+                    <AllReviews />
                 </Route>
                 <Route path="/games/:api_id">
                     <Game />

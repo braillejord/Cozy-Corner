@@ -10,7 +10,6 @@ function GamePreview({id, api_id, background_image, name}) {
                     <p>Game Title: {name}</p>
                     <img src={background_image} />
                 </NavLink>
-                <p>This is where you would put other information about the game.</p>
             </>
             :
             <>
@@ -18,7 +17,6 @@ function GamePreview({id, api_id, background_image, name}) {
                 <p>Game Title: {name}</p>
                 <img src={background_image} />
                 </NavLink>
-                <p>This is where you would put other information about the game.</p>
             </>    
             }
         </>

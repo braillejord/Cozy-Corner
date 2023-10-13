@@ -16,12 +16,10 @@ function Review() {
     }, [])
 
     function handleDeleteReview() {
-        fetch(`/reviews/${id}`)
-        .then((r) => {
-            if (r.ok) {
-                r.json().then(history.push("/"))
-            }
+        fetch(`/reviews/${id}`, {
+            method: "DELETE"
         })
+        .then(history.push("/"))
     }
 
     return (
@@ -31,7 +29,6 @@ function Review() {
             <p>{review.rating}</p>
             <p>{review.platform}</p>
             <p>{review.review}</p>
-            <button>Edit Review</button>
             <button onClick={() => handleDeleteReview()}>Delete Review</button>
         </>
     )

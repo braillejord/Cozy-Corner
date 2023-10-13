@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from "react";
 import { UserContext } from "../context/UserContext";
 import ListPreview from "../components/previews/ListPreview";
-import ListForm from "../components/ListForm";
+import ListForm from "../components/forms/ListForm";
 import ReviewPreview from "../components/previews/ReviewPreview"
 
 function MyCorner() {
-    const [lists, setLists] = useState([])
-    const [reviews, setReviews] = useState([])
+    const [lists, setLists] = useState()
+    const [reviews, setReviews] = useState()
     const [showListForm, setShowListForm] = useState(false)
     const [newListName, setNewListName] = useState("")
     const {user, setUser} = useContext(UserContext)
@@ -21,7 +21,6 @@ function MyCorner() {
     }, [])
     
     function fetchLists() {
-        console.log("Fetching...")
         fetch('/lists')
         .then(r => {
             if (r.ok) {
@@ -30,9 +29,7 @@ function MyCorner() {
         })
     }
 
-    console.log(reviews)
-
-    // fetchLists()
+    if (!lists) fetchLists()
 
     function handleCreateNewList(e) {
         e.preventDefault()
@@ -53,6 +50,7 @@ function MyCorner() {
         })
         .then(setNewListName(""))
         .then(fetchLists())
+        .then(fetchLists())
     }
     
     return (
@@ -70,7 +68,7 @@ function MyCorner() {
                 :
                 <button onClick={() => setShowListForm(true)}>Create New List</button>
                 }
-                {lists.map((list) => (
+                {lists?.map((list) => (
                     <ListPreview
                     key={list.id}
                     {...list}
@@ -79,7 +77,7 @@ function MyCorner() {
             </div>
             <div>
                 <h2>Reviews</h2>
-                {reviews.map((review) => (
+                {reviews?.map((review) => (
                     <ReviewPreview
                     key={review.id}
                     {...review}
