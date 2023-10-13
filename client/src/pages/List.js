@@ -4,26 +4,16 @@ import GamePreview from "../components/previews/GamePreview";
 import { NavLink } from "react-router-dom";
 
 function List() {
-    const [listGames, setListGames] = useState([])
-    const [listName, setListName] = useState("")
+    const [list, setList] = useState([])
     const history = useHistory()
 
     const {id} = useParams();
-    
-    useEffect(() => {
-        fetch(`/list-games/${id}`)
-        .then((r) => {
-            if (r.ok) {
-                r.json().then((games) => setListGames(games))
-            }
-        })
-    }, [])
 
     useEffect(() => {
         fetch(`/lists/${id}`)
         .then((r) => {
             if (r.ok) {
-                r.json().then((name) => setListName(name))
+                r.json().then((list) => setList(list))
             }
         })
     }, [])
@@ -33,19 +23,29 @@ function List() {
             method: "DELETE"
         })
         .then(history.push("/"))
+        .then(window.location.reload())
     }
 
     return (
         <>
-            <h1>{listName}</h1>
-            <NavLink to={"/search-games"}>Find a Game</NavLink>
-            {listGames.map((game) => (
-                <GamePreview 
-                key={game.api_id}
-                {...game}
-                />
+            <h1>{list.name}</h1>
+            <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
+            {list.gamelist_items?.map((game) => (
+                <GamePreview key={game.api_id} {...game} />
             ))}
-            <button onClick={(e) => handleDeleteList(e)}>Delete List</button>
+
+            <dialog id="deleteListModal" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Are you sure you want to delete this list?</h3>
+                    <button onClick={() => handleDeleteList()} type="submit" className="btn btn-primary">Delete List</button>
+                    <p className="py-4">Press ESC key or click outside to close</p>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+        <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>
         </>
     )
 }

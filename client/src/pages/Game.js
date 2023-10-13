@@ -108,6 +108,7 @@ function Game() {
             <h1>Game Name: {game.name}</h1>
             <form onSubmit={(e) => handleCreateListItem(e)}>
                 <select onChange={(e) => setListSelection(e.target.value)}>
+                    <option value="select a list">Select a List</option>
                     {gamelist_options}
                 </select>
                 <button type="submit">Add to List</button>

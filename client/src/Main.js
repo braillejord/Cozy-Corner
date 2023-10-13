@@ -1,7 +1,6 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Logo from "./components/Logo";
 import AllGames from "./components/search/AllGames"
 import AllReviews from "./components/search/AllReviews"
 import Game from "./pages/Game";
@@ -13,7 +12,6 @@ function Main() {
     return (
         <>
             <NavBar />
-            <Logo />
             <Switch>
                 <Route path="/search-games">
                     <AllGames />
