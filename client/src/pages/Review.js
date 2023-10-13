@@ -4,53 +4,59 @@ import { useParams, useHistory } from "react-router-dom";
 import { format } from 'date-fns';
 
 function Review() {
-    const [review, setReview] = useState([])
-    const [name, setName] = useState("")
+    const [response, setResponse] = useState()
     const history = useHistory()
     const {id} = useParams();
-    const {user, setUser} = useContext(UserContext)
-    
-    // const originalDate = new Date(review.created_at)
-    // const formattedDate = format(originalDate, 'PPP')
+    const {user} = useContext(UserContext)
 
+    
     useEffect(() => {
         fetch(`/reviews/${id}`)
         .then((r) => {
             if (r.ok) {
-                r.json().then((review) => setReview(review))
+                r.json().then((response) => setResponse(response))
             }
         })
     }, [])
-
-    function fetchUsername() {
-        fetch(`/user/${review.user_id}`)
-        .then((r) => {
-            if (r.ok) {
-                r.json().then((name) => setName(name))
-            }
-        })
-    }
-
-    fetchUsername()
-
+    
     function handleDeleteReview() {
         fetch(`/reviews/${id}`, {
             method: "DELETE"
         })
         .then(history.push("/"))
     }
+    
+    if (!response) {
+        return <p>Loading...</p>
+    }
 
+    const originalDate = new Date(response.review.created_at)
+    const formattedDate = format(originalDate, 'PPP')
 
     return (
         <>
-            <h1>{review.game_name}</h1>
-            <p>Written By: {name}</p>
-            {/* <p>{formattedDate}</p> */}
-            <p>Game Rating: {review.rating} out of 5</p>
-            <p>Platform: {review.platform}</p>
-            <p>Game Review: {review.review}</p>
-            {review.user_id == user.id
-            ? <button onClick={() => handleDeleteReview()}>Delete Review</button>
+            <h1>Game Name: {response.review.game_name}</h1>
+            <p>Written By: {response.username.username}</p>
+            <p>{formattedDate}</p>
+            <p>Game Rating: {response.review.rating} out of 5</p>
+            <p>Platform: {response.review.platform}</p>
+            <p>Game Review: {response.review.review}</p>
+            {response.review.user_id == user.id
+            ? 
+            <>
+            <dialog id="deleteListModal" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Are you sure you want to delete this review?</h3>
+                    <button onClick={() => handleDeleteReview()} type="submit" className="btn btn-primary">Delete Review</button>
+                    <p className="py-4">Press ESC key or click outside to close</p>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete Review</button>
+            </>
             : null
             }
         </>
