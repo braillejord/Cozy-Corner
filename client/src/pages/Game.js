@@ -89,7 +89,7 @@ function Game() {
     }
 
     useEffect(() => {
-        fetch(`/user/${user.id}`)
+        fetch(`/user-lists/${user.id}`)
         .then((r) => {
             if (r.ok) {
                 r.json().then((lists) => setUserLists(lists))
@@ -124,7 +124,6 @@ function Game() {
             <p>Publishers: {game_publishers}</p>
             <p>Tags: {game_tags}</p>
             <p>Release Date: {game.released}</p>
-            <p>Game Id: {game.api_id}</p>
             <p>ESRB Rating: {game_rating}</p>
             <p>Stores: {game_stores}</p>
         </>
