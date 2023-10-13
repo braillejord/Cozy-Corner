@@ -10,14 +10,14 @@ function Review() {
     const {id} = useParams();
     const {user, setUser} = useContext(UserContext)
     
-    const originalDate = new Date(review.created_at)
-    const formattedDate = format(originalDate, 'PPP')
-    
+    // const originalDate = new Date(review.created_at)
+    // const formattedDate = format(originalDate, 'PPP')
+
     useEffect(() => {
         fetch(`/reviews/${id}`)
         .then((r) => {
             if (r.ok) {
-                r.json().then((review) => setReview(review)).then(fetchUsername())
+                r.json().then((review) => setReview(review))
             }
         })
     }, [])
@@ -31,6 +31,8 @@ function Review() {
         })
     }
 
+    fetchUsername()
+
     function handleDeleteReview() {
         fetch(`/reviews/${id}`, {
             method: "DELETE"
@@ -43,7 +45,7 @@ function Review() {
         <>
             <h1>{review.game_name}</h1>
             <p>Written By: {name}</p>
-            <p>{formattedDate}</p>
+            {/* <p>{formattedDate}</p> */}
             <p>Game Rating: {review.rating} out of 5</p>
             <p>Platform: {review.platform}</p>
             <p>Game Review: {review.review}</p>

@@ -106,7 +106,6 @@ function Game() {
             <p>Game Name: {game.name}</p>
 
             <form onSubmit={(e) => handleCreateListItem(e)}>
-                <label htmlFor="lists">Choose a list:</label>
                 <select onChange={(e) => setListSelection(e.target.value)}>
                     {gamelist_options}
                 </select>

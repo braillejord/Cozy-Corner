@@ -38,7 +38,7 @@ function List() {
     return (
         <>
             <h1>{listName}</h1>
-            <NavLink to={"/search"}>Find a game to add to your list!</NavLink>
+            <NavLink to={"/search-games"}>Find a Game</NavLink>
             {listGames.map((game) => (
                 <GamePreview 
                 key={game.api_id}
