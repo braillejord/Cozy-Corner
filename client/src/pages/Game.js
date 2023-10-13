@@ -77,6 +77,8 @@ function Game() {
             user_id: user.id,
             list_id: listSelection
         }
+
+        console.log(item_data)
         
         fetch("/create-gamelist-item", {
             method: "POST",
@@ -103,8 +105,7 @@ function Game() {
             
     return (
         <>            
-            <p>Game Name: {game.name}</p>
-
+            <h1>Game Name: {game.name}</h1>
             <form onSubmit={(e) => handleCreateListItem(e)}>
                 <select onChange={(e) => setListSelection(e.target.value)}>
                     {gamelist_options}

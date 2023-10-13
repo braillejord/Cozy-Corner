@@ -13,16 +13,20 @@ function NavBar() {
     }
     
     return (
-        <>
-            <h1>NavBar</h1>
-            <NavLink to={"/"}>My Corner</NavLink>
-            <NavLink to={"/search-games"}>Games</NavLink>
-            <NavLink to={"/search-reviews"}>Reviews</NavLink>
-            <span>Hello {user ? user.username : "Anonymous"}</span>
-            <NavLink to={"/login"}>
-                <button onClick={handleLogout}>Log Out</button>
-            </NavLink>
-        </>
+        <div className="navbar bg-base-100">
+        <div className="flex-1">
+            {/* <a className="btn btn-ghost normal-case text-xl">cozy corner </a> */}
+            <NavLink to={"/"} className="btn btn-ghost normal-case text-xl">cozy corner 🌻</NavLink>
+        </div>
+        <div className="flex-none">
+            <ul className="menu menu-horizontal px-1">
+                <li><NavLink exact to={"/"}>My Corner</NavLink></li>
+                <li><NavLink to={"/search-games"}>Games</NavLink></li>
+                <li><NavLink to={"/search-reviews"}>Reviews</NavLink></li>
+                <li><NavLink to={"/login"} onClick={handleLogout}>Log Out</NavLink></li>
+            </ul>
+        </div>
+        </div>
     )
 }
 

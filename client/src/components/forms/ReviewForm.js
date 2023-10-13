@@ -57,7 +57,7 @@ function ReviewForm({game}) {
                     initialValue={rating}
                     allowFraction="True"
                 />
-                You might not need "Select a platform" when it comes to Daisy.
+                {/* You might not need "Select a platform" when it comes to Daisy. */}
                 <select required onChange={(e) => setPlatformSelection(e.target.value)}>
                     <option>Select a platform:</option>
                     {platform_options}
