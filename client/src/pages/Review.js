@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 function Review() {
     const [response, setResponse] = useState()
     const [editing, setEditing] = useState(false)
+    const [rating, setRating] = useState()
     const [review, setReview] = useState("")
     const history = useHistory()
     const {id} = useParams();
@@ -44,6 +45,7 @@ function Review() {
     function startEditing() {
         setEditing(true)
         setReview(response.review.review)
+        setRating(response.review.rating)
     }
     
     function handleSubmitReview(e) {
@@ -52,7 +54,7 @@ function Review() {
 
         const review_obj = {
             platform: response.review.platform,
-            rating: response.review.rating,
+            rating: rating,
             review: review,
         }
 
@@ -66,6 +68,7 @@ function Review() {
         })
         .then(window.location.reload())
         .then(setReview(""))
+        .then(setRating())
     }
     
     return (
@@ -73,8 +76,8 @@ function Review() {
             <h1>Game Name: {response.review.game_name}</h1>
             <p>Written By: {response.username.username}</p>
             <p>{formattedDate}</p>
+            <p>Platform: {response.review.platform}</p>
             <p>Game Rating: {response.review.rating} out of 5</p>
-
             <div className="rating rating-lg rating-half">
                 <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
                 <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-red-400 mask-half-1" disabled />
@@ -87,14 +90,25 @@ function Review() {
                 <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-lime-400 mask-half-2" disabled />
                 <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-green-400 mask-half-1" disabled />
                 <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-green-400 mask-half-2" disabled />
-            </div>            
-
-            <p>Platform: {response.review.platform}</p>
+            </div>
             
             {editing 
             ? 
             <>
             <form onSubmit={(e) => handleSubmitReview(e)}>
+                <select onChange={(e) => setRating(parseFloat(e.target.value))} className="select select-bordered w-full max-w-xs">
+                    <option value="0" name="0">Keep my rating</option>
+                    <option value="0.5" name="0.5">0.5 out of 5</option>
+                    <option value="1" name="1">1 out of 5</option>
+                    <option value="1.5" name="1.5">1.5 out of 5</option>
+                    <option value="2" name="2">2 out of 5</option>
+                    <option value="2.5" name="2.5">2.5 out of 5</option>
+                    <option value="3" name="3">3 out of 5</option>
+                    <option value="3.5" name="3.5">3.5 out of 5</option>
+                    <option value="4" name="4">4 out of 5</option>
+                    <option value="4.5" name="4.5">4.5 out of 5</option>
+                    <option value="5" name="5">5 out of 5</option>
+                </select>
                 <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered" placeholder="Write your review here!"></textarea>
                 <button className="btn" type="submit">Publish Edits</button> 
             </form>
