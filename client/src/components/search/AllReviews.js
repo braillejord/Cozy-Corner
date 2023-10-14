@@ -46,7 +46,7 @@ function AllReviews() {
     }
 
     let rendered_platforms = platforms.results.map((platform) => (
-        <li><a>{platform.name}</a></li>
+        <li><a onClick={filterByPlatform} name={platform.name}>{platform.name}</a></li>
     ))
 
     function filterByRating(e) {
@@ -70,7 +70,22 @@ function AllReviews() {
     }
 
     function filterByPlatform(e) {
-        console.log(e.target)
+        const platform_name = e.target.name
+
+        const elem = document.activeElement
+        if (elem) {
+            elem?.blur()
+        }
+
+        let filtered_reviews = rendered_reviews.filter((review) => {
+            if (platform_name === "all") {
+                return true
+            } else if (review.props.children[1].props.children === platform_name) {
+                return true
+            }
+        })
+
+        setFilteredReviews(filtered_reviews)
     }
     
     return (
@@ -90,7 +105,7 @@ function AllReviews() {
             <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="btn m-1">Filter by Platform</label>
                 <ul tabIndex={0} className="h-96 overflow-y-auto block dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>All Platforms</a></li>
+                    <li><a onClick={filterByPlatform} name="all">All Platforms</a></li>
                     {rendered_platforms}
                 </ul>
             </div>
