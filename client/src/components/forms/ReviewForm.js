@@ -1,15 +1,14 @@
 import React, {useState, useContext} from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import { Rating } from "react-simple-star-rating";
 
 function ReviewForm({game}) {
-    const [rating, setRating] = useState(3)
     const [platformSelection, setPlatformSelection] = useState("")
     const [review, setReview] = useState("")
+    const [rating, setRating] = useState()
     const [writeReview, setWriteReview] = useState(false)
     const history = useHistory()
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
 
     function handleSubmitReview(e) {
         e.preventDefault()
@@ -33,15 +32,6 @@ function ReviewForm({game}) {
         })
         .then((r) => r.json()).then((review_id) => history.push(`/reviews/${review_id}`))
         .then(setWriteReview(!writeReview))
-        .then(handleReset())
-    }
-
-    function handleRating(rate) {
-        setRating(rate)
-    }
-
-    function handleReset() {
-        setRating(0)
     }
 
     const platform_options = game.platforms.map((platform) => (
@@ -51,23 +41,28 @@ function ReviewForm({game}) {
     return (
         <>
             <form>
-                <Rating
-                    required
-                    onClick={handleRating}
-                    initialValue={rating}
-                    allowFraction="True"
-                />
-                {/* You might not need "Select a platform" when it comes to Daisy. */}
-                <select required onChange={(e) => setPlatformSelection(e.target.value)}>
-                    <option>Select a platform:</option>
+                <div onChange={(e) => setRating(parseFloat(e.target.value))} className="rating rating-lg rating-half">
+                    <input type="radio" name="rating-10" value="0" className="rating-hidden" />
+                    <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-red-400 mask-half-1" />
+                    <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-red-400 mask-half-2" />
+                    <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-orange-400 mask-half-1" />
+                    <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-orange-400 mask-half-2" />
+                    <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-yellow-400 mask-half-1" />
+                    <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-yellow-400 mask-half-2" />
+                    <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-lime-400 mask-half-1" />
+                    <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-lime-400 mask-half-2" />
+                    <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-green-400 mask-half-1" />
+                    <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-green-400 mask-half-2" />
+                </div>
+
+                <select onChange={(e) => setPlatformSelection(e.target.value)} className="select select-bordered w-full max-w-xs">
+                    <option disabled selected>Platform played on:</option>
                     {platform_options}
                 </select>
-                <textarea
-                required
-                value={review}
-                onChange={(e) => setReview(e.target.value)}
-                placeholder="Review here..."></textarea>
-                <button type="submit" onClick={(e) => handleSubmitReview(e)}>Submit Review</button>
+                
+                <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered" placeholder="Write your review here!"></textarea>
+
+                <button type="submit" onClick={(e) => handleSubmitReview(e)} className="btn btn-primary">Submit Review</button>
             </form>
         </>
     )

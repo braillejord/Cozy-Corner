@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { NavLink } from "react-router-dom";
-import ReviewPreview from "../previews/ReviewPreview";
 
 function AllReviews() {
     const [reviews, setReviews] = useState([])
@@ -30,17 +29,34 @@ function AllReviews() {
 
 
     let sorted_reviews = reviews.sort((a, b) => a.rating - b.rating)
-    
-    let rendered_reviews = sorted_reviews.map((review) => (
+
+    let rendered_reviews = sorted_reviews.map((review) => (        
         <tr>
                 <td>{review.game_name}</td>
                 <td>{review.platform}</td>
                 <td>{review.rating} / 5</td>
+                <td>
+                    <div className="rating rating-half">
+                        <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
+                        <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-red-400 mask-half-1" disabled />
+                        <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-red-400 mask-half-2" disabled />
+                        <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-orange-400 mask-half-1" disabled />
+                        <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-orange-400 mask-half-2" disabled />
+                        <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-yellow-400 mask-half-1" disabled />
+                        <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-yellow-400 mask-half-2" disabled />
+                        <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-lime-400 mask-half-1" disabled />
+                        <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-lime-400 mask-half-2" disabled />
+                        <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-green-400 mask-half-1" disabled />
+                        <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-green-400 mask-half-2" disabled />
+                    </div>
+                </td>
                 <NavLink to={`/reviews/${review.id}`}>
                     <td>{`${review.review.substring(0, 50)}...`}</td>
                 </NavLink>
         </tr>
     ))
+
+    console.log(rendered_reviews)
     
     if (!platforms) {
         return <p>Loading...</p>

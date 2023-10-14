@@ -18,6 +18,13 @@ function Review() {
             }
         })
     }, [])
+
+    useEffect(() => {
+        if (response) {
+            const radios = document.querySelectorAll('input[name="rating-10"]')
+            radios[response.review.rating * 2].checked = true
+        }
+    }, [response])
     
     function handleDeleteReview() {
         fetch(`/reviews/${id}`, {
@@ -39,6 +46,21 @@ function Review() {
             <p>Written By: {response.username.username}</p>
             <p>{formattedDate}</p>
             <p>Game Rating: {response.review.rating} out of 5</p>
+
+            <div className="rating rating-lg rating-half">
+                <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
+                <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-red-400 mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-red-400 mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-orange-400 mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-orange-400 mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-yellow-400 mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-yellow-400 mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-lime-400 mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-lime-400 mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-green-400 mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-green-400 mask-half-2" disabled />
+            </div>            
+
             <p>Platform: {response.review.platform}</p>
             <p>Game Review: {response.review.review}</p>
             {response.review.user_id == user.id

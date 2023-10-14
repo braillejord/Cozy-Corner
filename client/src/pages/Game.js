@@ -114,7 +114,7 @@ function Game() {
                 <button type="submit">Add to List</button>
             </form>
 
-            {writeReview ? <ReviewForm game={game}/> : <button onClick={() => setWriteReview(!writeReview)}>Write a Review</button>}
+            {writeReview ? <ReviewForm game={game}/> : <button className="btn btn-primary" onClick={() => setWriteReview(!writeReview)}>Write a Review</button>}
             
             <img src={game.background_image} />
             <img src={game.background_image_additional} />
