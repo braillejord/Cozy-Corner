@@ -6,6 +6,7 @@ function AllReviews() {
     const [reviews, setReviews] = useState([])
     const [platforms, setPlatforms] = useState()
     const [filteredReviews, setFilteredReviews] = useState()
+    const [searchInput, setSearchInput] = useState("")
     
     useEffect(() => {
         fetch("/all-reviews")
@@ -109,6 +110,8 @@ function AllReviews() {
                     {rendered_platforms}
                 </ul>
             </div>
+
+            <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search reviews by game..." className="input input-bordered w-full max-w-xs" />
             
             <div className="overflow-x-auto">
                 <table className="table">
@@ -121,7 +124,10 @@ function AllReviews() {
                     </tr>
                     </thead>
                     <tbody>
-                        {filteredReviews ? filteredReviews : rendered_reviews}
+                        {filteredReviews 
+                        ? filteredReviews.filter((review) => searchInput ? review.props.children[0].props.children.toLowerCase().includes(searchInput.toLowerCase()) : true) 
+                        : rendered_reviews.filter((review) => searchInput ? review.props.children[0].props.children.toLowerCase().includes(searchInput.toLowerCase()) : true)
+                        }
                     </tbody>
                 </table>
             </div>
