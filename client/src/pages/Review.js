@@ -5,10 +5,11 @@ import { format } from 'date-fns';
 
 function Review() {
     const [response, setResponse] = useState()
+    const [editing, setEditing] = useState(false)
+    const [review, setReview] = useState("")
     const history = useHistory()
     const {id} = useParams();
     const {user} = useContext(UserContext)
-
     
     useEffect(() => {
         fetch(`/reviews/${id}`)
@@ -40,6 +41,33 @@ function Review() {
     const originalDate = new Date(response.review.created_at)
     const formattedDate = format(originalDate, 'PPP')
 
+    function startEditing() {
+        setEditing(true)
+        setReview(response.review.review)
+    }
+    
+    function handleSubmitReview(e) {
+        e.preventDefault()
+        setEditing(false)
+
+        const review_obj = {
+            platform: response.review.platform,
+            rating: response.review.rating,
+            review: review,
+        }
+
+        fetch(`/reviews/${response.review.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(review_obj),
+        })
+        .then(window.location.reload())
+        .then(setReview(""))
+    }
+    
     return (
         <>
             <h1>Game Name: {response.review.game_name}</h1>
@@ -62,10 +90,21 @@ function Review() {
             </div>            
 
             <p>Platform: {response.review.platform}</p>
-            <p>Game Review: {response.review.review}</p>
+            
+            {editing 
+            ? 
+            <>
+            <form onSubmit={(e) => handleSubmitReview(e)}>
+                <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered" placeholder="Write your review here!"></textarea>
+                <button className="btn" type="submit">Publish Edits</button> 
+            </form>
+            </>
+            : <p>Game Review: {response.review.review}</p> }
+            
             {response.review.user_id == user.id
             ? 
             <>
+            {editing ? null : <button className="btn" onClick={startEditing}>Edit Review</button>}            
             <dialog id="deleteListModal" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Are you sure you want to delete this review?</h3>
@@ -76,11 +115,9 @@ function Review() {
                     <button>close</button>
                 </form>
             </dialog>
-
             <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete Review</button>
             </>
-            : null
-            }
+            : null}
         </>
     )
 }
