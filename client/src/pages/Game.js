@@ -8,6 +8,7 @@ function Game() {
     const [userLists, setUserLists] = useState([])
     const [listSelection, setListSelection] = useState(0)
     const [writeReview, setWriteReview] = useState(false)
+    const [gameAdded, setGameAdded] = useState(false)
     const {api_id} = useParams();
     const {user, setUser} = useContext(UserContext)
 
@@ -75,10 +76,8 @@ function Game() {
             name: game.name,
             image: game.background_image,
             user_id: user.id,
-            list_id: listSelection
+            list_id: parseInt(listSelection)
         }
-
-        console.log(item_data)
         
         fetch("/create-gamelist-item", {
             method: "POST",
@@ -88,6 +87,11 @@ function Game() {
             },
             body: JSON.stringify(item_data),
         })
+        .then(document.getElementById('addGameToListModal').close())
+        .then(setGameAdded(true))
+        .then(setTimeout(() => {
+            setGameAdded(false)
+        }, 5000))
     }
 
     useEffect(() => {
@@ -104,15 +108,32 @@ function Game() {
     ))
             
     return (
-        <>            
-            <h1>Game Name: {game.name}</h1>
-            <form onSubmit={(e) => handleCreateListItem(e)}>
-                <select onChange={(e) => setListSelection(e.target.value)}>
-                    <option value="select a list">Select a List</option>
-                    {gamelist_options}
-                </select>
-                <button type="submit">Add to List</button>
-            </form>
+        <>    
+            {gameAdded ? 
+            <div className="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>Game added to your list!</span>
+            </div>
+            :
+            null}        
+            <h1>Game Name: {game.name}</h1>                
+            <dialog id="addGameToListModal" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Choose a list to add this game to!</h3>
+                    <form onSubmit={(e) => handleCreateListItem(e)}>
+                        <select onChange={(e) => setListSelection(e.target.value)} className="select select-bordered w-full max-w-xs">
+                            {gamelist_options}
+                        </select>
+                        <button type="submit" className="btn btn-primary">Add Game</button>
+                    </form>
+                    <p className="py-4">Press ESC key or click outside to close</p>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <button className="btn btn-primary" onClick={()=>document.getElementById('addGameToListModal').showModal()}>Add to List</button>
 
             {writeReview ? <ReviewForm game={game}/> : <button className="btn btn-primary" onClick={() => setWriteReview(!writeReview)}>Write a Review</button>}
             

@@ -18,7 +18,7 @@ function List() {
         })
     }, [])
 
-    function handleDeleteList(e) {
+    function handleDeleteList() {
         fetch(`/lists/${id}`, {
             method: "DELETE"
         })
@@ -45,7 +45,7 @@ function List() {
                 </form>
             </dialog>
 
-        <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>
+            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>
         </>
     )
 }
