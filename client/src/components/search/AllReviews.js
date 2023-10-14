@@ -5,6 +5,7 @@ import ReviewPreview from "../previews/ReviewPreview";
 function AllReviews() {
     const [reviews, setReviews] = useState([])
     const [platforms, setPlatforms] = useState()
+    const [filteredReviews, setFilteredReviews] = useState()
     
     useEffect(() => {
         fetch("/all-reviews")
@@ -14,7 +15,6 @@ function AllReviews() {
             }
         })
     }, [])
-
 
     function fetchPlatforms() {
         fetch("/platforms")
@@ -27,7 +27,10 @@ function AllReviews() {
 
     if (!platforms) fetchPlatforms()
 
-    let rendered_reviews = reviews.map((review) => (
+
+    let sorted_reviews = reviews.sort((a, b) => a.rating - b.rating)
+    
+    let rendered_reviews = sorted_reviews.map((review) => (
         <tr>
                 <td>{review.game_name}</td>
                 <td>{review.platform}</td>
@@ -37,7 +40,6 @@ function AllReviews() {
                 </NavLink>
         </tr>
     ))
-
     
     if (!platforms) {
         return <p>Loading...</p>
@@ -46,6 +48,30 @@ function AllReviews() {
     let rendered_platforms = platforms.results.map((platform) => (
         <li><a>{platform.name}</a></li>
     ))
+
+    function filterByRating(e) {
+        const rating_string = e.target.name
+        const rating_number = parseInt(rating_string)
+
+        const elem = document.activeElement
+        if (elem) {
+            elem?.blur()
+        }
+
+        let filtered_reviews = rendered_reviews.filter((review) => {            
+            if (rating_number === 0) {
+                return true
+            } else if (review.props.children[2].props.children[0] >= rating_number) {
+                return true
+            }
+        })
+
+        setFilteredReviews(filtered_reviews)
+    }
+
+    function filterByPlatform(e) {
+        console.log(e.target)
+    }
     
     return (
         <>
@@ -53,17 +79,18 @@ function AllReviews() {
             <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="btn m-1">Filter by Rating</label>
                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>0+</a></li>
-                    <li><a>1+</a></li>
-                    <li><a>2+</a></li>
-                    <li><a>3+</a></li>
-                    <li><a>4+</a></li>
+                    <li><a onClick={filterByRating} name="0">All Ratings</a></li>
+                    <li><a onClick={filterByRating} name="1">1+</a></li>
+                    <li><a onClick={filterByRating} name="2">2+</a></li>
+                    <li><a onClick={filterByRating} name="3">3+</a></li>
+                    <li><a onClick={filterByRating} name="4">4+</a></li>
                 </ul>
             </div>
 
             <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="btn m-1">Filter by Platform</label>
-                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabIndex={0} className="h-96 overflow-y-auto block dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>All Platforms</a></li>
                     {rendered_platforms}
                 </ul>
             </div>
@@ -73,13 +100,13 @@ function AllReviews() {
                     <thead>
                     <tr>
                         <th>Game</th>
-                        <th>Rating</th>
                         <th>Platform</th>
+                        <th>Rating</th>
                         <th>Review</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {rendered_reviews}
+                        {filteredReviews ? filteredReviews : rendered_reviews}
                     </tbody>
                 </table>
             </div>
