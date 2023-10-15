@@ -33,10 +33,36 @@ function List() {
             <h1>{list.name}</h1>
             <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
             <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
-            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>
-            {list.gamelist_items?.map((game) => (
-                <GamePreview key={game.api_id} game={game} showDetails={showDetails} setShowDetails={setShowDetails}/>
-            ))}
+            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>     
+            {showDetails ?
+            <>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Currently Playing</th>
+                            <th>Played</th>
+                            <th>Finished</th>
+                            <th>Endless</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {list.gamelist_items?.map((game) => (
+                                <GamePreview key={game.api_id} game={game} showDetails={showDetails} setShowDetails={setShowDetails}/>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </>
+            :
+            <>
+                {list.gamelist_items?.map((game) => (
+                    <GamePreview key={game.api_id} game={game} showDetails={showDetails} setShowDetails={setShowDetails}/>
+                ))}
+            </> 
+            }
 
             <dialog id="deleteListModal" className="modal">
                 <div className="modal-box">

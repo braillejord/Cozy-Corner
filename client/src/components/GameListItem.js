@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-function GameListItemPreview({game, showDetails}) {
+function GameListItem({game, showDetails}) {
     const [playingGame, setPlayingGame] = useState(game.currently_playing ?? false)
     const [endlessGame , setEndlessGame] = useState(game.endless ?? false)
     const [playedGame , setPlayedGame] = useState(game.played ?? false)
     const [finishedGame , setFinishedGame] = useState(game.finished ?? false)
+    const history = useHistory()
 
     function handleDeleteFromList() {
         fetch(`/games/${game.api_id}`, {
@@ -47,31 +48,33 @@ function GameListItemPreview({game, showDetails}) {
         })
     }
 
+    function handleGameNameClick() {
+        history.push(`/games/${game.api_id}`)
+    }
+
     return (
         <>
-            <NavLink to={`/games/${game.api_id}`}>
-                <p>{game.name}</p>
-                <img src={game.background_image} />
-            </NavLink>
-            {showDetails ?
+            {showDetails ?              
+                <tr>
+                    {/* Maybe have a tooltip that tells them it will take them to the game? Or can they infer? */}
+                    <th><button onClick={handleGameNameClick}>{game.name}</button></th>
+                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playingGame" checked={playingGame} className="checkbox" /></td>
+                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playedGame" checked={playedGame} className="checkbox" /></td>
+                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="finishedGame" checked={finishedGame} className="checkbox" /></td>
+                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="endlessGame" checked={endlessGame} className="checkbox" /></td>
+                    <td>{game.gamelist_id ? <button className="btn" onClick={handleDeleteFromList}>x</button> : null}</td>
+                </tr>
+            :
             <>
-            <label>Currently Playing</label>
-            <input type="checkbox" onChange={(e) => handleClick(e)} name="playingGame" checked={playingGame} className="checkbox" />
-
-            <label>Played</label>
-            <input type="checkbox" onChange={(e) => handleClick(e)} name="playedGame" checked={playedGame} className="checkbox" />
-
-            <label>Finished</label>
-            <input type="checkbox" onChange={(e) => handleClick(e)} name="finishedGame" checked={finishedGame} className="checkbox" />
-
-            <label>Endless</label>
-            <input type="checkbox" onChange={(e) => handleClick(e)} name="endlessGame" checked={endlessGame} className="checkbox" />
-
-            {game.gamelist_id ? <button onClick={handleDeleteFromList}>X</button> : null}
+                <p>Normal list card. Make it look the same as search results?</p>
+                <NavLink to={`/games/${game.api_id}`}>
+                    <p>{game.name}</p>
+                    <img src={game.background_image} />
+                </NavLink>
             </>
-            : null}
+            }
         </>
     )
 }
 
-export default GameListItemPreview
+export default GameListItem
