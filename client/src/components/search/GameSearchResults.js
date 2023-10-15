@@ -20,7 +20,7 @@ function GameSearchResults({searchInput, setSearchInput}) {
         rendered_games = games.results.map((game) => (
                 <GamePreview
                 key={game.id}
-                {...game} />
+                game={game} />
             ))
         }
     

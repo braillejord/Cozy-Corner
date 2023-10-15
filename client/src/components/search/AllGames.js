@@ -21,11 +21,9 @@ function AllGames({setSearchInput}) {
         rendered_games = games.results.map((game) => (
                 <GamePreview
                 key={game.id}
-                {...game} />
+                game={game} />
             ))
         }
-
-    console.log(rendered_games)
 
     return (
         <>
