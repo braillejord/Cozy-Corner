@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import AllGames from "./components/search/AllGames"
@@ -7,17 +7,28 @@ import Game from "./pages/Game";
 import Review from "./pages/Review";
 import List from "./pages/List";
 import MyCorner from "./pages/MyCorner";
+import GameSearchResults from "./components/search/GameSearchResults";
 
 function Main() {
+    const [searchInput, setSearchInput] = useState("")
+
     return (
         <>
             <NavBar />
             <Switch>
                 <Route path="/search-games">
-                    <AllGames />
+                    <AllGames 
+                    setSearchInput={setSearchInput}
+                    />
                 </Route>
                 <Route path="/search-reviews">
                     <AllReviews />
+                </Route>
+                <Route path="/search-results">
+                    <GameSearchResults 
+                    searchInput={searchInput}
+                    setSearchInput={setSearchInput}
+                    />
                 </Route>
                 <Route path="/games/:api_id">
                     <Game />

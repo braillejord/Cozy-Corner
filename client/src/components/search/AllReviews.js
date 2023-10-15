@@ -55,8 +55,6 @@ function AllReviews() {
                 </NavLink>
         </tr>
     ))
-
-    console.log(rendered_reviews)
     
     if (!platforms) {
         return <p>Loading...</p>
