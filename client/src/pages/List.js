@@ -5,6 +5,8 @@ import { NavLink } from "react-router-dom";
 
 function List() {
     const [list, setList] = useState([])
+    const [showDetails, setShowDetails] = useState(false)
+    const [fetchData, setFetchData] = useState(false)
     const history = useHistory()
 
     const {id} = useParams();
@@ -29,9 +31,10 @@ function List() {
     return (
         <>
             <h1>{list.name}</h1>
+            <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
             <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
             {list.gamelist_items?.map((game) => (
-                <GamePreview key={game.api_id} {...game} />
+                <GamePreview key={game.api_id} {...game} showDetails={showDetails} setShowDetails={setShowDetails}/>
             ))}
 
             <dialog id="deleteListModal" className="modal">

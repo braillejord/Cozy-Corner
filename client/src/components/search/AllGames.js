@@ -25,6 +25,8 @@ function AllGames({setSearchInput}) {
             ))
         }
 
+    console.log(rendered_games)
+
     return (
         <>
             <h1>All Games</h1>
@@ -35,8 +37,6 @@ function AllGames({setSearchInput}) {
                     <button type="submit" className="btn btn-primary">Search</button>
                 </NavLink>
             </form>
-
-            {/* <GameSearchResults searchInput={searchInput} setSearchInput={setSearchInput}/> */}
             {rendered_games}
             <button onClick={() => setPage(page + 1)}>Load 20 More</button>
         </>

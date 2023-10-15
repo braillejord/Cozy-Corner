@@ -79,6 +79,8 @@ function Game() {
             list_id: parseInt(listSelection)
         }
         
+        console.log(item_data)
+
         fetch("/create-gamelist-item", {
             method: "POST",
             headers: {
@@ -122,6 +124,7 @@ function Game() {
                     <h3 className="font-bold text-lg">Choose a list to add this game to!</h3>
                     <form onSubmit={(e) => handleCreateListItem(e)}>
                         <select onChange={(e) => setListSelection(e.target.value)} className="select select-bordered w-full max-w-xs">
+                            <option disabled selected>Choose a list:</option>
                             {gamelist_options}
                         </select>
                         <button type="submit" className="btn btn-primary">Add Game</button>
