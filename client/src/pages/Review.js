@@ -80,16 +80,16 @@ function Review() {
             <p>Game Rating: {response.review.rating} out of 5</p>
             <div className="rating rating-lg rating-half">
                 <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
-                <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-red-400 mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-red-400 mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-orange-400 mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-orange-400 mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-yellow-400 mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-yellow-400 mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-lime-400 mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-lime-400 mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-green-400 mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-green-400 mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-primary mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-primary mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-secondary-focus mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-secondary-focus mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-warning mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-warning mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-accent mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-accent mask-half-2" disabled />
+                <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-success mask-half-1" disabled />
+                <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-success mask-half-2" disabled />
             </div>
             
             {editing 
