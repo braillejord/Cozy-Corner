@@ -53,27 +53,14 @@ function GameListItem({game, showDetails}) {
     }
 
     return (
-        <>
-            {showDetails ?              
-                <tr>
-                    {/* Maybe have a tooltip that tells them it will take them to the game? Or can they infer? */}
-                    <th><button onClick={handleGameNameClick}>{game.name}</button></th>
-                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playingGame" checked={playingGame} className="checkbox" /></td>
-                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playedGame" checked={playedGame} className="checkbox" /></td>
-                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="finishedGame" checked={finishedGame} className="checkbox" /></td>
-                    <td><input type="checkbox" onChange={(e) => handleClick(e)} name="endlessGame" checked={endlessGame} className="checkbox" /></td>
-                    <td>{game.gamelist_id ? <button className="btn" onClick={handleDeleteFromList}>x</button> : null}</td>
-                </tr>
-            :
-            <>
-                <p>Normal list card. Make it look the same as search results?</p>
-                <NavLink to={`/games/${game.api_id}`}>
-                    <p>{game.name}</p>
-                    <img src={game.background_image} />
-                </NavLink>
-            </>
-            }
-        </>
+        <tr>
+            <th><button onClick={handleGameNameClick}>{game.name}</button></th>
+            <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playingGame" checked={playingGame} className="checkbox" /></td>
+            <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playedGame" checked={playedGame} className="checkbox" /></td>
+            <td><input type="checkbox" onChange={(e) => handleClick(e)} name="finishedGame" checked={finishedGame} className="checkbox" /></td>
+            <td><input type="checkbox" onChange={(e) => handleClick(e)} name="endlessGame" checked={endlessGame} className="checkbox" /></td>
+            <td><button className="btn" onClick={handleDeleteFromList}>x</button></td>
+        </tr>
     )
 }
 

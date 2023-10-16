@@ -5,14 +5,16 @@ import GameListItem from "../GameListItem";
 function GamePreview({game, showDetails}) {
     return (
         <>
-            {showDetails ? <GameListItem key={game.api_id} game={game} showDetails={showDetails}/> :
-            <>
-                <p>Normal game preview. Not added to a list.</p>
-                <NavLink to={`/games/${game.id}`}>
-                <p>{game.name}</p>
-                <img src={game.background_image} />
-                </NavLink>
-            </>    
+            {showDetails ? <GameListItem key={game.api_id} game={game} showDetails={showDetails}/> 
+            :
+            <NavLink to={`/games/${game.id}`}>
+                <div className="card card-compact w-72 bg-base-100 shadow-xl">
+                    <figure><img src={game.background_image} alt={game.name} /></figure>
+                    <div className="card-body">
+                        <h2 className="card-title">{game.name}</h2>
+                    </div>
+                </div>
+            </NavLink>   
             }
         </>
     )
