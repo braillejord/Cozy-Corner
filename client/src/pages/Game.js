@@ -8,7 +8,8 @@ function Game() {
     const [game, setGame] = useState([])
     const [userLists, setUserLists] = useState([])
     const [listSelection, setListSelection] = useState(0)
-    const [writeReview, setWriteReview] = useState(false)
+    // const [writeReview, setWriteReview] = useState(false)
+    const [reviewForm, setReviewForm] = useState(false)
     const [gameAdded, setGameAdded] = useState(false)
     const {api_id} = useParams();
     const {user, setUser} = useContext(UserContext)
@@ -21,8 +22,6 @@ function Game() {
             }
         })
     }, [])
-
-    console.log(game)
 
     useEffect(() => {
         fetch(`/user-lists/${user.id}`)
@@ -117,6 +116,10 @@ function Game() {
         const parsedDate = parseISO(game.released)
         formattedDate = format(parsedDate, 'MMM d, yyyy')
     }
+
+    function writeReview() {
+        setReviewForm(!reviewForm)
+    }
             
     return (
         <>    
@@ -153,13 +156,13 @@ function Game() {
                     <p>{formattedDate} | {game_rating} </p>
                     <div className="card-actions justify-end">
                         <button className="btn btn-primary" onClick={()=>document.getElementById('addGameToListModal').showModal()}>Add to List</button>
-                        <button className="btn btn-primary" onClick={() => setWriteReview(!writeReview)}>Write a Review</button>
+                        <button className="btn btn-primary" onClick={writeReview}>{reviewForm ? "Discard Review" : "Write a Review"}</button>
                     </div>
                 </div>
             </div>
             
             {/* review form in a card */}
-            {writeReview ? <ReviewForm game={game}/> : null}
+            {reviewForm ? <ReviewForm game={game} /> : null}
             
             {/* game description */}
             <div className="card bg-neutral-content shadow-xl">
