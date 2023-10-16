@@ -70,56 +70,72 @@ function Review() {
         .then(setReview(""))
         .then(setRating())
     }
+
+    console.log(response.review)
     
     return (
         <>
-            <h1>Game Name: {response.review.game_name}</h1>
-            <p>Written By: {response.username.username}</p>
-            <p>{formattedDate}</p>
-            <p>Platform: {response.review.platform}</p>
-            <p>Game Rating: {response.review.rating} out of 5</p>
-            <div className="rating rating-lg rating-half">
-                <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
-                <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-primary mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-primary mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-secondary-focus mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-secondary-focus mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-warning mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-warning mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-accent mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-accent mask-half-2" disabled />
-                <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-success mask-half-1" disabled />
-                <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-success mask-half-2" disabled />
+           <div className="card bg-neutral-content shadow-xl">
+                <div className="card-body">
+                    <h2 className="card-title text-3xl">
+                        {response.review.game_name} 
+                        <div className="rating rating-half">
+                            <input type="radio" name="rating-10" value="0" className="rating-hidden" disabled />
+                            <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-primary mask-half-1" disabled />
+                            <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-primary mask-half-2" disabled />
+                            <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-secondary-focus mask-half-1" disabled />
+                            <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-secondary-focus mask-half-2" disabled />
+                            <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-warning mask-half-1" disabled />
+                            <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-warning mask-half-2" disabled />
+                            <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-accent mask-half-1" disabled />
+                            <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-accent mask-half-2" disabled />
+                            <input type="radio" name="rating-10" value="4.5" className="mask mask-heart bg-success mask-half-1" disabled />
+                            <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-success mask-half-2" disabled />
+                        </div>
+                    </h2>
+                    <p className="text-accent-content text-xs">{response.username.username} | {formattedDate} | {response.review.platform}</p>
+                    <p style={{whiteSpace: 'pre-line'}}>{response.review.review}</p>
+                    <div className="card-actions justify-center">
+                        {response.review.user_id == user.id 
+                        ? <>
+                        <button className="btn btn-primary" onClick={()=>document.getElementById('deleteReviewModal').showModal()}>Delete Review</button> 
+                        {editing ? null : <button className="btn btn-primary" onClick={startEditing}>Edit Review</button>}</> 
+                        : null}
+                    </div>
+                </div>
             </div>
-            
-            {editing 
-            ? 
-            <>
-            <form onSubmit={(e) => handleSubmitReview(e)}>
-                <select onChange={(e) => setRating(parseFloat(e.target.value))} className="select select-bordered w-full max-w-xs">
-                    <option value="0" name="0">Keep my rating</option>
-                    <option value="0.5" name="0.5">0.5 out of 5</option>
-                    <option value="1" name="1">1 out of 5</option>
-                    <option value="1.5" name="1.5">1.5 out of 5</option>
-                    <option value="2" name="2">2 out of 5</option>
-                    <option value="2.5" name="2.5">2.5 out of 5</option>
-                    <option value="3" name="3">3 out of 5</option>
-                    <option value="3.5" name="3.5">3.5 out of 5</option>
-                    <option value="4" name="4">4 out of 5</option>
-                    <option value="4.5" name="4.5">4.5 out of 5</option>
-                    <option value="5" name="5">5 out of 5</option>
-                </select>
-                <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered" placeholder="Write your review here!"></textarea>
-                <button className="btn" type="submit">Publish Edits</button> 
-            </form>
-            </>
-            : <p>Game Review: {response.review.review}</p> }
-            
-            {response.review.user_id == user.id
-            ? 
-            <>
-            {editing ? null : <button className="btn" onClick={startEditing}>Edit Review</button>}            
-            <dialog id="deleteListModal" className="modal">
+            <div className="card bg-neutral-content shadow-xl">
+                {editing ?
+                    <div className="card-body">
+                    <h2 className="card-title">Edit Review</h2>
+                    <form onSubmit={(e) => handleSubmitReview(e)}>
+                    <div className="flex flex-col space-y-5 px-8">
+                        <select onChange={(e) => setRating(parseFloat(e.target.value))} className="select select-bordered w-full max-w-xs">
+                            <option value="0" name="0">Keep my rating</option>
+                            <option value="0.5" name="0.5">0.5</option>
+                            <option value="1" name="1">1</option>
+                            <option value="1.5" name="1.5">1.5</option>
+                            <option value="2" name="2">2</option>
+                            <option value="2.5" name="2.5">2.5</option>
+                            <option value="3" name="3">3</option>
+                            <option value="3.5" name="3.5">3.5</option>
+                            <option value="4" name="4">4</option>
+                            <option value="4.5" name="4.5">4.5</option>
+                            <option value="5" name="5">5</option>
+                        </select>
+                        <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered h-72" placeholder="Write your review here!"></textarea>
+                        
+                        <div className="card-actions justify-center">
+                            <button onClick={() => setEditing(false)} className="btn btn-primary">Discard Edits</button>
+                            <button className="btn btn-primary" type="submit">Publish Edits</button> 
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                : null}
+            </div>
+      
+            <dialog id="deleteReviewModal" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Are you sure you want to delete this review?</h3>
                     <button onClick={() => handleDeleteReview()} type="submit" className="btn btn-primary">Delete Review</button>
@@ -129,9 +145,6 @@ function Review() {
                     <button>close</button>
                 </form>
             </dialog>
-            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete Review</button>
-            </>
-            : null}
         </>
     )
 }

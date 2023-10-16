@@ -15,37 +15,39 @@ function Main() {
     return (
         <>
             <NavBar />
-            <Switch>
-                <Route path="/search-games">
-                    <AllGames 
-                    setSearchInput={setSearchInput}
-                    />
-                </Route>
-                <Route path="/search-reviews">
-                    <AllReviews />
-                </Route>
-                <Route path="/search-results">
-                    <GameSearchResults 
-                    searchInput={searchInput}
-                    setSearchInput={setSearchInput}
-                    />
-                </Route>
-                <Route path="/games/:api_id">
-                    <Game />
-                </Route>
-                <Route path="/reviews/:id">
-                    <Review />
-                </Route>
-                <Route path="/lists/:id">
-                    <List />
-                </Route>
-                <Route exact path="/">
-                    <MyCorner />
-                </Route>
-                <Route path="*">
-                    <h1>404 Not Found</h1>
-                </Route>
-            </Switch>
+            <div className="flex flex-col space-y-5 px-8">
+                <Switch>
+                    <Route path="/search-games">
+                        <AllGames 
+                        setSearchInput={setSearchInput}
+                        />
+                    </Route>
+                    <Route path="/search-reviews">
+                        <AllReviews />
+                    </Route>
+                    <Route path="/search-results">
+                        <GameSearchResults 
+                        searchInput={searchInput}
+                        setSearchInput={setSearchInput}
+                        />
+                    </Route>
+                    <Route path="/games/:api_id">
+                        <Game />
+                    </Route>
+                    <Route path="/reviews/:id">
+                        <Review />
+                    </Route>
+                    <Route path="/lists/:id">
+                        <List />
+                    </Route>
+                    <Route exact path="/">
+                        <MyCorner />
+                    </Route>
+                    <Route path="*">
+                        <h1>404 Not Found</h1>
+                    </Route>
+                </Switch>
+            </div>
         </>
     )
 }

@@ -66,7 +66,7 @@ function ReviewForm({game}) {
                                 </select>
                             </div>
                             
-                            <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered" placeholder="Write your review here!"></textarea>
+                            <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered h-72" placeholder="Write your review here!"></textarea>
 
                             <div className="card-actions justify-center">
                                 <button type="submit" onClick={(e) => handleSubmitReview(e)} className="btn btn-primary">Submit Review</button>
