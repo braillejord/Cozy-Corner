@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 
 function LoginForm({setSignup}) {
+    const [error, setError] = useState()
+    const [display, setDisplay] = useState(false)
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
 
@@ -30,6 +32,11 @@ function LoginForm({setSignup}) {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((user) => setUser(user)).then(history.push("/"))
+            } else {
+                r.json().then((message) => setError(message['message'])).then(() => setDisplay(true)).then(setTimeout(() => {
+                    setError('')
+                    setDisplay(false)
+                }, 8000))
             }
         })
     }
@@ -44,6 +51,7 @@ function LoginForm({setSignup}) {
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form className="card-body" onSubmit={onSubmit}>
                     <div className="form-control">
+                    {display && error ? <p className="label-text text-error">{error}</p> : null}
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
@@ -55,7 +63,6 @@ function LoginForm({setSignup}) {
                     </label>
                     <input type="password" placeholder="password" className="input input-bordered" value={formData.password} onChange={onChange} required />
                     <label className="label">
-                        {/* <a href="#" className="label-text-alt link link-hover">New here? Sign up!</a> */}
                         <a onClick={() => setSignup(true)} className="label-text-alt link link-hover">New here? Sign up!</a>
                     </label>
                     </div>

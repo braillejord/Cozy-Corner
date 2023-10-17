@@ -29,7 +29,7 @@ function AllGames({setSearchInput}) {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center">
+            <h1 className="text-3xl font-semibold text-center pt-10">
                 All Games
                 <div className="flex justify-end font-normal">
                     <form className="flex justify-end">

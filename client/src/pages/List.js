@@ -30,10 +30,12 @@ function List() {
 
     return (
         <>
-            <h1>{list.name}</h1>
-            <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
-            <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
-            <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>     
+            <h1 className="text-3xl font-semibold text-center">{list.name}</h1>
+            <div className="flex justify-end gap-2">
+                <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
+                <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
+                <button className="btn" onClick={()=>document.getElementById('deleteListModal').showModal()}>Delete List</button>     
+            </div>
             {showDetails ?
             <>
                 <div className="overflow-x-auto">

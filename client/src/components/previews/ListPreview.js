@@ -21,7 +21,7 @@ function ListPreview({list}) {
         } else if (userChoice === "copper") {
             setColor("bg-accent h-24 rounded-t-2xl")
             colorObj = {card_color: "bg-accent h-24 rounded-t-2xl"}
-        } else if (userChoice === "teal slate") {
+        } else if (userChoice === "teal green") {
             setColor("bg-success h-24 rounded-t-2xl")
             colorObj = {card_color: "bg-success h-24 rounded-t-2xl"}
         } else if (userChoice === "sky blue") {
@@ -39,21 +39,23 @@ function ListPreview({list}) {
     }
 
     return (
-        <div className="card card-compact w-48 bg-base-100 shadow-xl">
+        <div className="card card-compact w-72 bg-base-100 shadow-xl">
                 <div className={color}></div>
                 <div className="card-body">
-                    <div className="flex justify-between">
+                    <div className="flex flex-wrap justify-between">
                         <NavLink to={`/lists/${list.id}`}>
-                            <h2 className="card-title">{list.name}</h2>
+                            <h2 className="link link-hover card-title text-lg list-name-preview" style={{margin: "0"}}>{list.name}</h2>
                         </NavLink>
-                        <div className="dropdown dropdown-right">
-                            <label tabIndex={0} className="m-1 text-2xl" style={{cursor: 'pointer'}}>...</label>
+                        <div className="dropdown dropdown-left">
+                            <div className="tooltip tooltip-bottom" data-tip="Card Colors">
+                                <label tabIndex={0} className="m-1 text-2xl" style={{cursor: 'pointer'}}>...</label>
+                            </div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                 <li><a onClick={(e) => chooseCardColor(e)} name="maroon">Maroon</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="bright red">Bright Red</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="dark tangerine">Dark Tangerine</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="copper">Copper</a></li>
-                                <li><a onClick={(e) => chooseCardColor(e)} name="teal">Teal</a></li>
+                                <li><a onClick={(e) => chooseCardColor(e)} name="teal green">Teal Green</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="sky blue">Sky Blue</a></li>
                             </ul>
                         </div>

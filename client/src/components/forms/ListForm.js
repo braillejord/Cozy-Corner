@@ -43,7 +43,9 @@ function ListForm() {
                 <button>close</button>
             </form>
         </dialog>
-        <button className="btn" onClick={()=>document.getElementById('newListModal').showModal()}>New List</button>
+        
+        
+        <button className="btn text-lg" onClick={()=>document.getElementById('newListModal').showModal()}>+</button>
        </>
     )
 }

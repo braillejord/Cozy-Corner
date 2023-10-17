@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import RatingCircle from "../RatingCircle";
 
 function AllReviews() {
@@ -7,6 +7,7 @@ function AllReviews() {
     const [platforms, setPlatforms] = useState()
     const [filteredReviews, setFilteredReviews] = useState()
     const [searchInput, setSearchInput] = useState("")
+    const history = useHistory()
     
     useEffect(() => {
         fetch("/all-reviews")
@@ -32,13 +33,11 @@ function AllReviews() {
     let sorted_reviews = reviews.sort((a, b) => a.rating - b.rating)
 
     let rendered_reviews = sorted_reviews.map((review) => (        
-        <tr>
+        <tr onClick={() => history.push(`/reviews/${review.id}`)}>
                 <th>{review.game_name}</th>
                 <td>{review.platform}</td>
                 <td><RatingCircle rating={review.rating}/></td>
-                <NavLink to={`/reviews/${review.id}`}>
-                    <td className="review-preview-text">{`${review.review.substring(0, 65)}...`}</td>
-                </NavLink>
+                <td className="review-preview-text">{review.review}</td>
         </tr>
     ))
     
@@ -91,7 +90,7 @@ function AllReviews() {
     
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center">All Reviews</h1>
+            <h1 className="text-3xl font-semibold text-center pt-10">All Reviews</h1>
             <div className="flex justify-between">
                 <div>
                     <div className="dropdown dropdown-hover">

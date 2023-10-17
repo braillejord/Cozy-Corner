@@ -59,7 +59,7 @@ function GameListItem({game, showDetails}) {
             <td><input type="checkbox" onChange={(e) => handleClick(e)} name="playedGame" checked={playedGame} className="checkbox" /></td>
             <td><input type="checkbox" onChange={(e) => handleClick(e)} name="finishedGame" checked={finishedGame} className="checkbox" /></td>
             <td><input type="checkbox" onChange={(e) => handleClick(e)} name="endlessGame" checked={endlessGame} className="checkbox" /></td>
-            <td><button className="btn" onClick={handleDeleteFromList}>x</button></td>
+            <td><button onClick={handleDeleteFromList}>🗑️</button></td>
         </tr>
     )
 }

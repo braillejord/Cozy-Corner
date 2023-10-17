@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 
 function SignupForm({setSignup}) {
+    const [error, setError] = useState()
+    const [display, setDisplay] = useState(false)
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
 
@@ -31,6 +33,11 @@ function SignupForm({setSignup}) {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((user) => setUser(user)).then(history.push("/"))
+            } else {
+                r.json().then((message) => setError(message['message'])).then(() => setDisplay(true)).then(setTimeout(() => {
+                    setError('')
+                    setDisplay(false)
+                }, 8000))
             }
         })
     }
@@ -44,11 +51,12 @@ function SignupForm({setSignup}) {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form className="card-body" onSubmit={onSubmit}>
+                    {display && error ? <p className="label-text text-error">{error}</p> : null}
                     <div className="form-control">
                     <label className="label">
                         <span className="label-text">Username</span>
                     </label>
-                    <input name="username" placeholder="username" className="input input-bordered" value={formData.username} onChange={onChange} required />
+                    <input name="username" placeholder="minimum 6 characters" className="input input-bordered" value={formData.username} onChange={onChange} required />
                     </div>
                     <div className="form-control">
                     <label className="label">
@@ -60,9 +68,8 @@ function SignupForm({setSignup}) {
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input name="password" type="password" placeholder="password" className="input input-bordered" value={formData.password} onChange={onChange} required />
+                    <input name="password" type="password" placeholder="minimum 8 characters" className="input input-bordered" value={formData.password} onChange={onChange} required />
                     <label className="label">
-                        {/* <a href="#" className="label-text-alt link link-hover">New here? Sign up!</a> */}
                         <a onClick={() => setSignup(false)} className="label-text-alt link link-hover">Have an account? Log in!</a>
                     </label>
                     </div>
