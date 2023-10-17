@@ -96,8 +96,8 @@ function Review() {
                     <div className="card-actions justify-center">
                         {response.review.user_id == user.id 
                         ? <>
-                        <button className="btn btn-primary" onClick={()=>document.getElementById('deleteReviewModal').showModal()}>Delete Review</button> 
-                        {editing ? null : <button className="btn btn-primary" onClick={startEditing}>Edit Review</button>}</> 
+                        {editing ? null : <button className="btn btn-primary" onClick={startEditing}>Edit Review</button>} 
+                        <button className="btn btn-primary" onClick={()=>document.getElementById('deleteReviewModal').showModal()}>Delete Review</button></> 
                         : null}
                     </div>
                 </div>

@@ -22,7 +22,7 @@ function GamePreview({game, showDetails}) {
                     <div className="flex flex-wrap justify-center card-body h-20 content-between">
                     <NavLink to={`/games/${game.api_id}`}>
                         <div className="tooltip tooltip-bottom" data-tip={game.name}>
-                            <h2 className="link link-hover card-title">{game.name}</h2>
+                            <h2 className="link link-hover card-title shortened-card-title">{game.name}</h2>
                         </div>
                     </NavLink>
                     {game.gamelist_id ?

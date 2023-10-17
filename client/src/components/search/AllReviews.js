@@ -94,7 +94,7 @@ function AllReviews() {
             <div className="flex justify-between">
                 <div>
                     <div className="dropdown dropdown-hover">
-                        <label tabIndex={0} className="btn m-1">Filter by Rating</label>
+                        <label tabIndex={0} className="btn btn-primary m-1">Filter by Rating</label>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li className="font-semibold"><a onClick={filterByRating} name="0">All Ratings</a></li>
                             <li><a onClick={filterByRating} name="1">1+</a></li>
@@ -105,7 +105,7 @@ function AllReviews() {
                     </div>
 
                     <div className="dropdown dropdown-hover">
-                        <label tabIndex={0} className="btn m-1">Filter by Platform</label>
+                        <label tabIndex={0} className="btn btn-primary m-1">Filter by Platform</label>
                         <ul tabIndex={0} className="h-96 overflow-y-auto block dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li className="font-semibold"><a onClick={filterByPlatform} name="all">All Platforms</a></li>
                             {rendered_platforms}

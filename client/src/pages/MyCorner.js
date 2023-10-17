@@ -36,7 +36,7 @@ function MyCorner({rerender, setRerender}) {
 
 
     let rendered_reviews = reviews?.map((review) => (        
-        <tr onClick={() => history.push(`/reviews/${review.id}`)} style={{cursor: 'pointer'}}>
+        <tr key={review.id} onClick={() => history.push(`/reviews/${review.id}`)} style={{cursor: 'pointer'}}>
             <th>{review.game_name}</th>
             <td>{review.platform}</td>
             <td><RatingCircle rating={review.rating}/></td>
@@ -50,7 +50,7 @@ function MyCorner({rerender, setRerender}) {
             <h1 className="text-4xl font-semibold text-center pt-10">My Corner</h1>
             <div>
                 <h1 className="text-2xl font-semibold text-left pb-3">Game Lists</h1>
-                <div className="flex flex-wrap gap-4 justify-between">
+                <div className="flex flex-wrap gap-x-10 gap-y-4">
                     {lists?.map((list) => (<ListPreview key={list.id} list={list}/>))}
                     {lists?.length === 0 ? <p className="text-primary">You don't have any lists yet!</p> : null}
                 </div>

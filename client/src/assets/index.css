@@ -6,7 +6,7 @@
     font-family: 'Satisfy', cursive;
 }
 
-.card-title {
+.shortened-card-title {
     white-space: nowrap;
     display: block;
     overflow: hidden;

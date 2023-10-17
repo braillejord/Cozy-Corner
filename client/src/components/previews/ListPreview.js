@@ -44,7 +44,7 @@ function ListPreview({list}) {
                 <div className="card-body">
                     <div className="flex flex-wrap justify-between">
                         <NavLink to={`/lists/${list.id}`}>
-                            <h2 className="link link-hover card-title text-lg list-name-preview" style={{margin: "0"}}>{list.name}</h2>
+                            <h2 className="link link-hover card-title shortened-card-title text-lg list-name-preview" style={{margin: "0"}}>{list.name}</h2>
                         </NavLink>
                         <div className="dropdown dropdown-left">
                             <div className="tooltip tooltip-bottom" data-tip="Card Colors">
