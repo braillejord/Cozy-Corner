@@ -37,7 +37,7 @@ function AllReviews() {
                 <td>{review.platform}</td>
                 <td><RatingCircle rating={review.rating}/></td>
                 <NavLink to={`/reviews/${review.id}`}>
-                    <td>{`${review.review.substring(0, 50)}...`}</td>
+                    <td className="review-preview-text">{`${review.review.substring(0, 65)}...`}</td>
                 </NavLink>
         </tr>
     ))
@@ -91,27 +91,30 @@ function AllReviews() {
     
     return (
         <>
-            <h1>All Reviews</h1>
-            <div className="dropdown dropdown-hover">
-                <label tabIndex={0} className="btn m-1">Filter by Rating</label>
-                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a onClick={filterByRating} name="0">All Ratings</a></li>
-                    <li><a onClick={filterByRating} name="1">1+</a></li>
-                    <li><a onClick={filterByRating} name="2">2+</a></li>
-                    <li><a onClick={filterByRating} name="3">3+</a></li>
-                    <li><a onClick={filterByRating} name="4">4+</a></li>
-                </ul>
-            </div>
+            <h1 className="text-3xl font-semibold text-center">All Reviews</h1>
+            <div className="flex justify-between">
+                <div>
+                    <div className="dropdown dropdown-hover">
+                        <label tabIndex={0} className="btn m-1">Filter by Rating</label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <li className="font-semibold"><a onClick={filterByRating} name="0">All Ratings</a></li>
+                            <li><a onClick={filterByRating} name="1">1+</a></li>
+                            <li><a onClick={filterByRating} name="2">2+</a></li>
+                            <li><a onClick={filterByRating} name="3">3+</a></li>
+                            <li><a onClick={filterByRating} name="4">4+</a></li>
+                        </ul>
+                    </div>
 
-            <div className="dropdown dropdown-hover">
-                <label tabIndex={0} className="btn m-1">Filter by Platform</label>
-                <ul tabIndex={0} className="h-96 overflow-y-auto block dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a onClick={filterByPlatform} name="all">All Platforms</a></li>
-                    {rendered_platforms}
-                </ul>
+                    <div className="dropdown dropdown-hover">
+                        <label tabIndex={0} className="btn m-1">Filter by Platform</label>
+                        <ul tabIndex={0} className="h-96 overflow-y-auto block dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <li className="font-semibold"><a onClick={filterByPlatform} name="all">All Platforms</a></li>
+                            {rendered_platforms}
+                        </ul>
+                    </div>
+                </div>
+                <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search reviews by game..." className="input input-bordered w-full max-w-xs" />
             </div>
-
-            <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search reviews by game..." className="input input-bordered w-full max-w-xs" />
             
             <div className="overflow-x-auto">
                 <table className="table">

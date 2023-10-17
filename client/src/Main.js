@@ -15,7 +15,7 @@ function Main() {
     return (
         <>
             <NavBar />
-            <div className="flex flex-col space-y-5 px-8">
+            <div className="flex flex-col space-y-5 px-8 pb-8">
                 <Switch>
                     <Route path="/search-games">
                         <AllGames 

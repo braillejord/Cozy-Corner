@@ -23,7 +23,7 @@ function NavBar() {
                 <li><NavLink exact to={"/"}>My Corner</NavLink></li>
                 <li><NavLink to={"/search-games"}>Games</NavLink></li>
                 <li><NavLink to={"/search-reviews"}>Reviews</NavLink></li>
-                <li><NavLink to={"/login"} onClick={handleLogout}>Log Out</NavLink></li>
+                <li className="font-semibold"><NavLink to={"/login"} onClick={handleLogout}>Log Out</NavLink></li>
             </ul>
         </div>
         </div>

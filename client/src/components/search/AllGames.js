@@ -24,18 +24,27 @@ function AllGames({setSearchInput}) {
                 game={game} />
             ))
         }
+    
+    if (!games.results) return <p>Loading...</p>
 
     return (
         <>
-            <h1>All Games</h1>
-
-            <form>
-                <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search games by name..." className="input input-bordered w-full max-w-xs" />
-                <NavLink to={"/search-results"}>
-                    <button type="submit" className="btn btn-primary">Search</button>
-                </NavLink>
-            </form>
-            {rendered_games}
+            <h1 className="text-3xl font-semibold text-center">
+                All Games
+                <div className="flex justify-end font-normal">
+                    <form className="flex justify-end">
+                        <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search by game name..." className="input input-bordered w-full max-w-xs" />
+                        <NavLink to={"/search-results"}>
+                            <button type="submit" className="btn btn-primary">Search</button>
+                        </NavLink>
+                    </form>
+                </div>
+            </h1>
+            <div class="flex flex-wrap gap-8 justify-center">
+                {rendered_games}
+            </div>
+            
+            
             <button onClick={() => setPage(page + 1)}>Load 20 More</button>
         </>
     )

@@ -70,8 +70,6 @@ function Review() {
         .then(setReview(""))
         .then(setRating())
     }
-
-    console.log(response.review)
     
     return (
         <>
