@@ -33,7 +33,7 @@ function Game() {
     }, [])
 
     if (!game) {
-        return <p>Loading...</p>
+        return <p className="pt-5">Loading...</p>
     }
 
     let game_developers
@@ -134,14 +134,14 @@ function Game() {
             <dialog id="addGameToListModal" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Choose a list to add this game to!</h3>
-                    <form onSubmit={(e) => handleCreateListItem(e)}>
+                    <form className="flex justify-between" onSubmit={(e) => handleCreateListItem(e)}>
                         <select onChange={(e) => setListSelection(e.target.value)} className="select select-bordered w-full max-w-xs">
-                            <option disabled selected>Choose a list:</option>
+                            <option disabled selected>Select list:</option>
                             {gamelist_options}
                         </select>
                         <button type="submit" className="btn btn-primary">Add Game</button>
                     </form>
-                    <p className="py-4">Press ESC key or click outside to close</p>
+                        <p className="pt-4 text-xs">Press ESC key or click outside to close</p>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

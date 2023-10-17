@@ -70,7 +70,7 @@ function List() {
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Are you sure you want to delete this list?</h3>
                     <button onClick={() => handleDeleteList()} type="submit" className="btn btn-primary">Delete List</button>
-                    <p className="py-4">Press ESC key or click outside to close</p>
+                    <p className="pt-4 text-xs">Press ESC key or click outside to close</p>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

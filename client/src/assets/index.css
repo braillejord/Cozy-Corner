@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.website-title {
+    font-family: 'Satisfy', cursive;
+}
+
 .card-title {
     white-space: nowrap;
     display: block;

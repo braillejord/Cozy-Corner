@@ -36,7 +36,7 @@ function Review() {
     }
     
     if (!response) {
-        return <p>Loading...</p>
+        return <p className="pt-5">Loading...</p>
     }
 
     const originalDate = new Date(response.review.created_at)
@@ -73,7 +73,7 @@ function Review() {
     
     return (
         <>
-           <div className="card bg-neutral-content shadow-xl">
+           <div className="card bg-neutral-content shadow-xl mt-10">
                 <div className="card-body">
                     <h2 className="card-title text-3xl">
                         {response.review.game_name} 
@@ -137,7 +137,7 @@ function Review() {
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Are you sure you want to delete this review?</h3>
                     <button onClick={() => handleDeleteReview()} type="submit" className="btn btn-primary">Delete Review</button>
-                    <p className="py-4">Press ESC key or click outside to close</p>
+                    <p className="pt-4 text-xs">Press ESC key or click outside to close</p>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

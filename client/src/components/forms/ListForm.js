@@ -31,13 +31,13 @@ function ListForm() {
     return (
        <>
         <dialog id="newListModal" className="modal">
-            <div className="modal-box">
+            <div className="modal-box text-left">
                 <h3 className="font-bold text-lg">Create New List</h3>
-                <form onSubmit={handleCreateNewList}>
-                    <input placeholder="new list name" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
+                <form className="flex justify-between" onSubmit={handleCreateNewList}>
+                    <input className="w-96" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
                     <button type="submit" className="btn btn-primary">Create</button>
                 </form>
-                <p className="py-4">Press ESC key or click outside to close</p>
+                <p className="pt-4 text-xs">Press ESC key or click outside to close</p>
             </div>
             <form method="dialog" className="modal-backdrop">
                 <button>close</button>

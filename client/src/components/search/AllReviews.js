@@ -42,7 +42,7 @@ function AllReviews() {
     ))
     
     if (!platforms) {
-        return <p>Loading...</p>
+        return <p className="pt-5">Loading...</p>
     }
 
     let rendered_platforms = platforms.results.map((platform) => (

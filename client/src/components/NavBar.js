@@ -13,7 +13,7 @@ function NavBar() {
     }
     
     return (
-        <div className="navbar bg-base-200">
+        <div className="navbar bg-neutral-content">
         <div className="flex-1">
             <NavLink to={"/"} className="btn btn-ghost normal-case text-xl">cozy corner 🌻</NavLink>
         </div>

@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 import GamePreview from "../previews/GamePreview";
 import GameSearchResults from "./GameSearchResults";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 function AllGames({setSearchInput}) {
     const [games, setGames] = useState([])
     const [page, setPage] = useState(1)
+    const history = useHistory()
 
     useEffect(() => {
         fetch(`/games/page=${page}`)
@@ -25,18 +26,16 @@ function AllGames({setSearchInput}) {
             ))
         }
     
-    if (!games.results) return <p>Loading...</p>
+    if (!games.results) return <p className="pt-5">Loading...</p>
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center pt-10">
+            <h1 className="text-5xl font-semibold text-center pt-10">
                 All Games
                 <div className="flex justify-end font-normal">
                     <form className="flex justify-end">
                         <input onChange={(e) => setSearchInput(e.target.value)} type="text" placeholder="Search by game name..." className="input input-bordered w-full max-w-xs" />
-                        <NavLink to={"/search-results"}>
-                            <button type="submit" className="btn btn-primary">Search</button>
-                        </NavLink>
+                        <button onClick={() => history.push("/search-results")} type="submit" className="btn btn-primary">Search</button>
                     </form>
                 </div>
             </h1>

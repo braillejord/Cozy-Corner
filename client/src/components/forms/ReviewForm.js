@@ -7,6 +7,7 @@ function ReviewForm({game}) {
     const [review, setReview] = useState("")
     const [rating, setRating] = useState()
     const [writeReview, setWriteReview] = useState(false)
+    const [initialState, setInitialState] = useState(true)
     const history = useHistory()
     const {user} = useContext(UserContext)
 
@@ -38,6 +39,16 @@ function ReviewForm({game}) {
         <option value={platform.platform.name} name={platform.platform.name}>{platform.platform.name}</option>
     ))
 
+    function setCurrentRating(e) {
+        setRating(parseFloat(e.target.value))
+        
+        if (e.target.value == "2.5") {
+            setInitialState(true)
+        } else {
+            setInitialState(false)
+        }
+    }
+
     return (
         <>
             <div className="card bg-neutral-content shadow-xl">
@@ -46,13 +57,14 @@ function ReviewForm({game}) {
                     <form>
                         <div className="flex flex-col space-y-5 px-8">
                             <div className="flex justify-around">
-                                <div onChange={(e) => setRating(parseFloat(e.target.value))} className="rating rating-lg rating-half" required>
+                                {/* <div onChange={(e) => setRating(parseFloat(e.target.value))} className="rating rating-lg rating-half" required> */}
+                                <div onChange={(e) => setCurrentRating(e)} className="rating rating-lg rating-half" required>
                                     <input type="radio" name="rating-10" value="0" className="rating-hidden"/>
                                     <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-primary mask-half-1"/>
                                     <input type="radio" name="rating-10" value="1" className="mask mask-heart bg-primary mask-half-2" />
                                     <input type="radio" name="rating-10" value="1.5" className="mask mask-heart bg-secondary-focus mask-half-1"/>
                                     <input type="radio" name="rating-10" value="2" className="mask mask-heart bg-secondary-focus mask-half-2" />
-                                    <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-warning mask-half-1" />
+                                    <input type="radio" name="rating-10" value="2.5" className="mask mask-heart bg-warning mask-half-1" checked={initialState}/>
                                     <input type="radio" name="rating-10" value="3" className="mask mask-heart bg-warning mask-half-2" />
                                     <input type="radio" name="rating-10" value="3.5" className="mask mask-heart bg-success mask-half-1" />
                                     <input type="radio" name="rating-10" value="4" className="mask mask-heart bg-success mask-half-2" />
