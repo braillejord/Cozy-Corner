@@ -11,6 +11,7 @@ import GameSearchResults from "./components/search/GameSearchResults";
 
 function Main() {
     const [searchInput, setSearchInput] = useState("")
+    const [rerender, setRerender] = useState(false)
 
     return (
         <>
@@ -38,10 +39,10 @@ function Main() {
                         <Review />
                     </Route>
                     <Route path="/lists/:id">
-                        <List />
+                        <List setRerender={setRerender}/>
                     </Route>
                     <Route exact path="/">
-                        <MyCorner />
+                        <MyCorner rerender={rerender} setRerender={setRerender}/>
                     </Route>
                     <Route path="*">
                         <h1>404 Not Found</h1>

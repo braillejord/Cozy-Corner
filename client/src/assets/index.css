@@ -11,6 +11,7 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 230px;
 }
 
 .review-preview-text {

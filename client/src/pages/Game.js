@@ -8,11 +8,12 @@ function Game() {
     const [game, setGame] = useState([])
     const [userLists, setUserLists] = useState([])
     const [listSelection, setListSelection] = useState(0)
-    // const [writeReview, setWriteReview] = useState(false)
     const [reviewForm, setReviewForm] = useState(false)
     const [gameAdded, setGameAdded] = useState(false)
+    const [error, setError] = useState()
+    const [display, setDisplay] = useState(false)
     const {api_id} = useParams();
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
 
     useEffect(() => {
         fetch(`/games/${api_id}`)
@@ -98,12 +99,22 @@ function Game() {
                 "Accept": "application/json",
             },
             body: JSON.stringify(item_data),
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then(document.getElementById('addGameToListModal').close())
+                .then(setGameAdded(true))
+                .then(setTimeout(() => {
+                    setGameAdded(false)
+                }, 5000))
+            } else {
+                r.json().then(document.getElementById('addGameToListModal').close())
+                .then((message) => setError(message['message']))
+                .then(() => setDisplay(true)).then(setTimeout(() => {
+                    setError('')
+                    setDisplay(false)
+                }, 8000))
+            }
         })
-        .then(document.getElementById('addGameToListModal').close())
-        .then(setGameAdded(true))
-        .then(setTimeout(() => {
-            setGameAdded(false)
-        }, 5000))
     }
 
 
@@ -124,12 +135,19 @@ function Game() {
     return (
         <>    
             {gameAdded ? 
-            <div className="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div className="alert alert-success mt-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <span>Game added to your list!</span>
             </div>
             :
-            null}     
+            null}  
+
+            {display ?
+            <div className="alert alert-warning mt-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>{error}</span>
+            </div>
+            : null}   
 
             <dialog id="addGameToListModal" className="modal">
                 <div className="modal-box">

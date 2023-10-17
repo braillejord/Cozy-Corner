@@ -3,12 +3,10 @@ import { useParams, useHistory } from "react-router-dom";
 import GamePreview from "../components/previews/GamePreview";
 import { NavLink } from "react-router-dom";
 
-function List() {
+function List({setRerender}) {
     const [list, setList] = useState([])
     const [showDetails, setShowDetails] = useState(false)
-    const [fetchData, setFetchData] = useState(false)
     const history = useHistory()
-
     const {id} = useParams();
 
     useEffect(() => {
@@ -25,12 +23,12 @@ function List() {
             method: "DELETE"
         })
         .then(history.push("/"))
-        .then(window.location.reload())
+        .then(setRerender(true))
     }
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center">{list.name}</h1>
+            <h1 className="text-3xl font-semibold text-center pt-10">{list.name}</h1>
             <div className="flex justify-end gap-2">
                 <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
                 <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
@@ -59,11 +57,11 @@ function List() {
                 </div>
             </>
             :
-            <>
+            <div class="flex flex-wrap gap-8 justify-center">
                 {list.gamelist_items?.map((game) => (
                     <GamePreview key={game.api_id} game={game} showDetails={showDetails} setShowDetails={setShowDetails}/>
                 ))}
-            </> 
+            </div> 
             }
 
             <dialog id="deleteListModal" className="modal">

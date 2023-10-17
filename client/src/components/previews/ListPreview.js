@@ -15,7 +15,7 @@ function ListPreview({list}) {
         } else if (userChoice === "bright red") {
             setColor("bg-secondary-focus h-24 rounded-t-2xl")
             colorObj = {card_color: "bg-secondary-focus h-24 rounded-t-2xl"}
-        } else if (userChoice === "dark tangerine") {
+        } else if (userChoice === "orange") {
             setColor("bg-warning h-24 rounded-t-2xl")
             colorObj = {card_color: "bg-warning h-24 rounded-t-2xl"}
         } else if (userChoice === "copper") {
@@ -53,7 +53,7 @@ function ListPreview({list}) {
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                 <li><a onClick={(e) => chooseCardColor(e)} name="maroon">Maroon</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="bright red">Bright Red</a></li>
-                                <li><a onClick={(e) => chooseCardColor(e)} name="dark tangerine">Dark Tangerine</a></li>
+                                <li><a onClick={(e) => chooseCardColor(e)} name="orange">Orange</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="copper">Copper</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="teal green">Teal Green</a></li>
                                 <li><a onClick={(e) => chooseCardColor(e)} name="sky blue">Sky Blue</a></li>

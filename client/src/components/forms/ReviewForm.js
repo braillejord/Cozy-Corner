@@ -42,7 +42,7 @@ function ReviewForm({game}) {
     function setCurrentRating(e) {
         setRating(parseFloat(e.target.value))
         
-        if (e.target.value == "2.5") {
+        if (e.target.value === "2.5") {
             setInitialState(true)
         } else {
             setInitialState(false)

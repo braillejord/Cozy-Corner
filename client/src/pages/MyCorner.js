@@ -1,14 +1,13 @@
 import React, {useState} from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ListPreview from "../components/previews/ListPreview";
 import ListForm from "../components/forms/ListForm";
 import RatingCircle from "../components/RatingCircle";
 
-function MyCorner() {
+function MyCorner({rerender, setRerender}) {
     const [lists, setLists] = useState()
     const [reviews, setReviews] = useState()
     const history = useHistory()
-
 
     function fetchLists() {
         fetch('/lists')
@@ -19,7 +18,10 @@ function MyCorner() {
         })
     }
 
-    if (!lists) fetchLists()
+    if (!lists || rerender) {
+        fetchLists()
+        setRerender(false)
+    }
 
     function fetchReviews() {
         fetch("/reviews")
@@ -45,11 +47,12 @@ function MyCorner() {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center pt-10">My Corner</h1>
+            <h1 className="text-4xl font-semibold text-center pt-10">My Corner</h1>
             <div>
                 <h1 className="text-2xl font-semibold text-left pb-3">Game Lists</h1>
                 <div className="flex flex-wrap gap-4 justify-between">
                     {lists?.map((list) => (<ListPreview key={list.id} list={list}/>))}
+                    {lists?.length === 0 ? <p className="text-primary">You don't have any lists yet!</p> : null}
                 </div>
                 <div className="pt-6 tooltip tooltip-bottom" data-tip="New List">
                     <ListForm />
@@ -60,6 +63,7 @@ function MyCorner() {
             
             <div>
                 <h1 className="text-2xl font-semibold text-left pb-3">Game Reviews</h1>
+                {rendered_reviews?.length === 0 ? <p className="text-primary">Click on "Games" to find a game and review it!</p> : null}
                 <div className="overflow-x-auto">
                     <table className="table">
                         <thead>

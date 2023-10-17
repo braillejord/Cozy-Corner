@@ -90,7 +90,7 @@ function AllReviews() {
     
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center pt-10">All Reviews</h1>
+            <h1 className="text-4xl font-semibold text-center pt-10">All Reviews</h1>
             <div className="flex justify-between">
                 <div>
                     <div className="dropdown dropdown-hover">
