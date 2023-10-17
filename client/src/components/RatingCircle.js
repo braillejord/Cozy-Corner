@@ -4,17 +4,17 @@ function RatingCircle({rating}) {
     let ratingColor
     
     if (rating >= 0 && rating < 1) {
-        ratingColor = "bg-primary text-neutral-content rounded-full w-12"
+        ratingColor = "bg-primary text-neutral-content rounded-full w-11"
     } else if (rating >= 1 && rating < 2) {
-        ratingColor = "bg-secondary-focus text-neutral-content rounded-full w-12"
+        ratingColor = "bg-secondary-focus text-neutral-content rounded-full w-11"
     } else if (rating >= 2 && rating < 3) {
-        ratingColor = "bg-warning text-neutral-content rounded-full w-12"
+        ratingColor = "bg-warning text-neutral-content rounded-full w-11"
     } else if (rating >= 3 && rating < 4) {
-        ratingColor = "bg-accent text-neutral-content rounded-full w-12"
+        ratingColor = "bg-accent text-neutral-content rounded-full w-11"
     } else if (rating >= 4 && rating < 5) {
-        ratingColor = "bg-success text-neutral-content rounded-full w-12"
+        ratingColor = "bg-success text-neutral-content rounded-full w-11"
     } else {
-        ratingColor = "bg-info text-neutral-content rounded-full w-12"
+        ratingColor = "bg-info text-neutral-content rounded-full w-11"
     }
     
     return (

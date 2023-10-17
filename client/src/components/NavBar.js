@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { NavLink } from "react-router-dom";
 
 function NavBar() {
-    const {user, setUser} = useContext(UserContext)
+    const {setUser} = useContext(UserContext)
 
     function handleLogout(e) {
         fetch("/logout", {
