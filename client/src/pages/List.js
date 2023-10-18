@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useParams, useHistory } from "react-router-dom";
 import GamePreview from "../components/previews/GamePreview";
 import { NavLink } from "react-router-dom";
+import EditListForm from "../components/forms/EditListForm";
 
 function List({setRerender}) {
     const [list, setList] = useState([])
@@ -28,7 +29,10 @@ function List({setRerender}) {
 
     return (
         <>
-            <h1 className="text-3xl font-semibold text-center pt-10">{list.name}</h1>
+            <div className="flex justify-center">
+                <h1 className="text-3xl font-semibold text-center pt-10">{list.name}</h1>
+                {showDetails ? <EditListForm listName={list.name} listId={list.id}/> : null}
+            </div>
             <div className="flex justify-end gap-2">
                 <button className="btn" onClick={() => setShowDetails(!showDetails)}>{showDetails ? "Hide Details" : "Show Details"}</button>
                 <button className="btn btn-primary"><NavLink to={"/search-games"}>Find a Game</NavLink></button>
@@ -57,7 +61,7 @@ function List({setRerender}) {
                 </div>
             </>
             :
-            <div class="flex flex-wrap gap-8 justify-center">
+            <div className="flex flex-wrap gap-8 justify-center">
                 {list.gamelist_items?.map((game) => (
                     <GamePreview key={game.api_id} game={game} showDetails={showDetails} setShowDetails={setShowDetails}/>
                 ))}

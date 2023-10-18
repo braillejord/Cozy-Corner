@@ -46,7 +46,7 @@ function ListPreview({list}) {
                         <NavLink to={`/lists/${list.id}`}>
                             <h2 className="link link-hover card-title shortened-card-title text-lg list-name-preview" style={{margin: "0"}}>{list.name}</h2>
                         </NavLink>
-                        <div className="dropdown dropdown-left">
+                        <div className="dropdown dropdown-bottom dropdown-end">
                             <div className="tooltip tooltip-bottom" data-tip="Card Colors">
                                 <label tabIndex={0} className="m-1 text-2xl" style={{cursor: 'pointer'}}>...</label>
                             </div>
