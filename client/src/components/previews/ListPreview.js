@@ -39,7 +39,7 @@ function ListPreview({list}) {
     }
 
     return (
-        <div className="card card-compact w-72 bg-base-100 shadow-xl">
+        <div className="card card-compact w-80 bg-base-100 shadow-xl">
                 <div className={color}></div>
                 <div className="card-body">
                     <div className="flex flex-wrap justify-between">

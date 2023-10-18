@@ -50,7 +50,8 @@ function MyCorner({rerender, setRerender}) {
             <h1 className="text-4xl font-semibold text-center pt-10">My Corner</h1>
             <div>
                 <h1 className="text-2xl font-semibold text-left pb-3">Game Lists</h1>
-                <div className="flex flex-wrap gap-x-10 gap-y-4">
+                {/* <div className="flex flex-wrap justify-between gap-x-4 gap-y-4"> */}
+                <div className="grid grid-cols-4 gap-x-4 gap-y-4">
                     {lists?.map((list) => (<ListPreview key={list.id} list={list}/>))}
                     {lists?.length === 0 ? <p className="text-primary">You don't have any lists yet!</p> : null}
                 </div>
