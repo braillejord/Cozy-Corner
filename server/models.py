@@ -21,6 +21,10 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ("-reviews.user",)
 
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter(cls.id == id).first()
+
     @validates("email")
     def validate_email(self, db_column, email):
         if "@" not in email:
@@ -31,8 +35,8 @@ class User(db.Model, SerializerMixin):
 
     @validates("username")
     def validate_username(self, db_column, username):
-        if not 6 <= len(username) <= 20:
-            raise ValueError("Username must be between 6 and 20 characters.")
+        if not 6 <= len(username):
+            raise ValueError("Username must contain 6 or more characters.")
         elif User.query.filter(User.username == username).first():
             raise ValueError("A user with this username already exists.")
         else:
@@ -60,33 +64,20 @@ class Review(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     platform = db.Column(db.String, nullable=False)
     rating = db.Column(db.Float, nullable=False)
-    review = db.Column(db.String, nullable=False)
+    review = db.Column(db.String)
+    game_name = db.Column(db.String, nullable=False)
+    api_id = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    game_id = db.Column(db.Integer, db.ForeignKey("games.id"))
 
-    serialize_rules = (
-        "-user.reviews",
-        "-game.reviews",
-    )
+    serialize_rules = ("-user.reviews",)
 
-
-class Game(db.Model, SerializerMixin):
-    __tablename__ = "games"
-
-    id = db.Column(db.Integer, primary_key=True)
-    api_id = db.Column(db.Integer, nullable=False)
-
-    reviews = db.relationship("Review", backref="game", cascade="all, delete-orphan")
-    gamelist_items = db.relationship("GameListItem", backref="game", cascade="all, delete-orphan")
-
-    serialize_rules = (
-        "-reviews.game",
-        "-gamelist_items.game",
-    )
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter(cls.id == id).first()
 
 
 class GameList(db.Model, SerializerMixin):
@@ -94,6 +85,7 @@ class GameList(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    card_color = db.Column(db.String, default="bg-primary h-24 rounded-t-2xl")
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -104,6 +96,10 @@ class GameList(db.Model, SerializerMixin):
     )
 
     serialize_rules = ("-gamelist_items.gamelist",)
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter(cls.id == id).first()
 
     @validates("name")
     def validate_name(self, db_column, name):
@@ -116,20 +112,23 @@ class GameListItem(db.Model, SerializerMixin):
     __tablename__ = "gamelist_items"
 
     id = db.Column(db.Integer, primary_key=True)
-    currently_playing = db.Column(db.Boolean)
-    played = db.Column(db.Boolean)
-    finished = db.Column(db.Boolean)
+    name = db.Column(db.String)
+    api_id = db.Column(db.Integer)
+    background_image = db.Column(db.String)
+    currently_playing = db.Column(db.Boolean, default=False)
+    played = db.Column(db.Boolean, default=False)
+    finished = db.Column(db.Boolean, default=False)
     date_started = db.Column(db.String)
     date_finished = db.Column(db.String)
-    endless = db.Column(db.Boolean)
+    endless = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    game_id = db.Column(db.Integer, db.ForeignKey("games.id"))
     gamelist_id = db.Column(db.Integer, db.ForeignKey("gamelists.id"))
 
-    serialize_rules = (
-        "-game.gamelist_items",
-        "-gamelist.gamelist_items",
-    )
+    serialize_rules = ("-gamelist.gamelist_items",)
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter(cls.id == id).first()

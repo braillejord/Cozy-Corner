@@ -6,6 +6,9 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
+import os
+from dotenv import load_dotenv
+
 app = Flask(__name__)
 app.secret_key = "daa581bd5cbe1386c8132dd0"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
@@ -26,3 +29,6 @@ api = Api(app)
 CORS(app)
 
 bcrypt = Bcrypt(app)
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY")

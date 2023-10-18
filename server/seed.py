@@ -46,24 +46,6 @@ def create_users():
     return users
 
 
-def create_games():
-    games = []  ## this is in place of the api_id, for now
-
-    for _ in range(100):
-        game = fake.company()
-
-        while game in games:
-            game = fake.company()
-
-        g = Game(
-            api_id=game,
-        )
-
-        games.append(g)
-
-    return games
-
-
 def create_reviews():
     reviews = []
     platforms = [
@@ -79,12 +61,24 @@ def create_reviews():
     ratings = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
 
     for _ in range(70):
+        num_paragraphs = 5
+        paragraphs = []
+
+        for _ in range(num_paragraphs):
+            num_sentences = fake.random_int(min=6, max=20)
+            sentences = [fake.sentence() for _ in range(num_sentences)]
+            p = " ".join(sentences)
+            paragraphs.append(p)
+
+        text_with_paras = "\n\n".join(paragraphs)
+
         r = Review(
             user_id=choice([user.id for user in users]),
-            game_id=choice([game.id for game in games]),
+            api_id=randint(1, 5000),
             platform=choice([platform for platform in platforms]),
             rating=choice([rating for rating in ratings]),
-            review=fake.paragraph(nb_sentences=10),
+            review=text_with_paras,
+            game_name=fake.name(),
         )
 
         reviews.append(r)
@@ -95,35 +89,32 @@ def create_reviews():
 def create_gamelists():
     gamelists = []
 
-    for _ in range(40):
-        gl = GameList(
-            user_id=choice([user.id for user in users]),
-            name=fake.company(),
-        )
+    gl1 = GameList(
+        user_id=1,
+        name="Owned",
+    )
 
-        gamelists.append(gl)
+    gl2 = GameList(
+        user_id=1,
+        name="Backlog",
+    )
+
+    gl3 = GameList(
+        user_id=1,
+        name="Wishlist",
+    )
+
+    gamelists = [gl1, gl2, gl3]
+
+    # for _ in range(40):
+    #     gl = GameList(
+    #         user_id=choice([user.id for user in users]),
+    #         name=fake.company(),
+    #     )
+
+    #     gamelists.append(gl)
 
     return gamelists
-
-
-def create_gamelist_items():
-    gamelist_items = []
-
-    for _ in range(200):
-        i = GameListItem(
-            gamelist_id=choice([gamelist.id for gamelist in gamelists]),
-            game_id=choice([game.id for game in games]),
-            played=fake.pybool(),
-            finished=fake.pybool(),
-            currently_playing=fake.pybool(),
-            date_started=choice(["01/01/2020", "06/17/2017", "07/31/2011"]),
-            date_finished=choice(["01/01/2023", "06/17/2023", None]),
-            endless=fake.pybool(),
-        )
-
-        gamelist_items.append(i)
-
-    return gamelist_items
 
 
 if __name__ == "__main__":
@@ -141,10 +132,10 @@ if __name__ == "__main__":
         db.session.add_all(users)
         db.session.commit()
 
-        print("Seeding games...")
-        games = create_games()
-        db.session.add_all(games)
-        db.session.commit()
+        # print("Seeding games...")
+        # games = create_games()
+        # db.session.add_all(games)
+        # db.session.commit()
 
         print("Seeding reviews...")
         reviews = create_reviews()
@@ -154,11 +145,6 @@ if __name__ == "__main__":
         print("Seeding gamelists...")
         gamelists = create_gamelists()
         db.session.add_all(gamelists)
-        db.session.commit()
-
-        print("Seeding gamelist items...")
-        gamelist_items = create_gamelist_items()
-        db.session.add_all(gamelist_items)
         db.session.commit()
 
         print("Seeding complete!!")

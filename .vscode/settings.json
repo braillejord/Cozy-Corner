@@ -1,9 +1,15 @@
 {
     "cSpell.words": [
         "backref",
+        "Completionist",
+        "dotenv",
         "gamelist",
         "gamelists",
+        "gameplay",
+        "Hltb",
         "ipdb",
-        "onupdate"
+        "onupdate",
+        "reqparse",
+        "tailwindcss"
     ]
 }
