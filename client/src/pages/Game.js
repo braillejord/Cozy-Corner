@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import ReviewForm from "../components/forms/ReviewForm";
+import HLTB from "../components/HLTB";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { format, parseISO } from 'date-fns';
@@ -13,6 +14,7 @@ function Game() {
     const [gameAdded, setGameAdded] = useState(false)
     const [error, setError] = useState()
     const [display, setDisplay] = useState(false)
+    const [hltb, setHltb] = useState()
     const {api_id} = useParams();
     const {user} = useContext(UserContext)
 
@@ -120,7 +122,7 @@ function Game() {
 
 
     const gamelist_options = userLists.map((list) => (
-        <option value={list.id} name={list.name}>{list.name}</option>
+        <option key={list.id} value={list.id} name={list.name}>{list.name}</option>
     ))
 
     let formattedDate
@@ -181,6 +183,9 @@ function Game() {
                     </div>
                 </div>
             </div>
+
+            {/* how long to beat information in a card */}
+            <HLTB game={game.name}/>
             
             {/* review form in a card */}
             {reviewForm ? <ReviewForm game={game} /> : null}
