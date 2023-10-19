@@ -18,7 +18,7 @@ function GamePreview({game, showDetails}) {
             {showDetails ? <GameListItem key={game.api_id} game={game} showDetails={showDetails}/> 
             :
                 <NavLink to={`/games/${game.api_id}`}>
-                    <div className="card card-compact h-60 w-72 bg-base-100 shadow-xl">
+                    <div className="card card-compact h-60 w-72 bg-base-100 shadow-xl transform-element">
                         <figure className="min-h-[170px]"><img src={game.background_image} alt={game.name} className="h-full object-cover w-full"/></figure>
                         <div className="flex flex-wrap justify-end card-body h-20 content-between">
                             <div className="tooltip tooltip-bottom" data-tip={game.name}>

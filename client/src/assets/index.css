@@ -20,3 +20,11 @@
     text-overflow: ellipsis;
     max-width: 400px;
 }
+
+.transform-element {
+    transition: transform 0.2s;
+}
+
+.transform-element:hover {
+    transform: scale(1.05)
+}
