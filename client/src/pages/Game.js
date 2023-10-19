@@ -185,7 +185,7 @@ function Game() {
             </div>
 
             {/* how long to beat information in a card */}
-            <HLTB game={game.name}/>
+            <HLTB game={game.name} />
             
             {/* review form in a card */}
             {reviewForm ? <ReviewForm game={game} /> : null}

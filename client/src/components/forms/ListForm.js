@@ -35,7 +35,7 @@ function ListForm() {
                 <h3 className="font-bold text-lg">Create New List</h3>
                 <p>(owned, backlog, wishlist, etc.)</p>
                 <form className="flex justify-between" onSubmit={handleCreateNewList}>
-                    <input className="w-80" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
+                    <input className="w-80 pl-2" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
                     <button type="submit" className=" btn btn-primary">Create List</button>
                 </form>
                 <p className="pt-4 text-xs">Press ESC key or click outside to close</p>

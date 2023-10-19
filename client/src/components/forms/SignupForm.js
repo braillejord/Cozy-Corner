@@ -47,7 +47,7 @@ function SignupForm({setSignup}) {
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                 <h1 className="website-title text-8xl font-bold">Cozy Corner</h1>
-                <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                <p className="py-6">A site that helps you organize your game collection, discover new titles, and connect with fellow players through reviews. Register now to start building your corner in our cozy gaming community!</p>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form className="card-body" onSubmit={onSubmit}>

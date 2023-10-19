@@ -34,7 +34,7 @@ function EditListForm({listName, listId}) {
             <div className="modal-box text-left">
                 <h3 className="font-bold text-lg">Edit List Title</h3>
                 <form className="flex justify-between" onSubmit={handleEditListName}>
-                    <input className="w-80" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
+                    <input className="w-80 pl-2" value={newListName} onChange={(e) => setNewListName(e.target.value)}></input>
                     <button type="submit" className=" btn btn-primary">Edit Title</button>
                 </form>
                 <p className="pt-4 text-xs">Press ESC key or click outside to close</p>
