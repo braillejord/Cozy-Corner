@@ -14,7 +14,7 @@ function CheckSession() {
         fetch("/check-session")
         .then((r) => {
             if (r.ok) {
-                r.json().then((user) => setUser(user)).then(setLoading(false))
+                r.json().then((user) => setUser(user)).then(() => setLoading(false))
             } else {
 
             }

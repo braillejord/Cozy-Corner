@@ -36,7 +36,7 @@ function ReviewForm({game}) {
     }
 
     const platform_options = game.platforms.map((platform) => (
-        <option value={platform.platform.name} name={platform.platform.name}>{platform.platform.name}</option>
+        <option key={platform.platform.id} value={platform.platform.name} name={platform.platform.name}>{platform.platform.name}</option>
     ))
 
     function setCurrentRating(e) {
@@ -57,7 +57,6 @@ function ReviewForm({game}) {
                     <form>
                         <div className="flex flex-col space-y-5 px-8">
                             <div className="flex justify-around">
-                                {/* <div onChange={(e) => setRating(parseFloat(e.target.value))} className="rating rating-lg rating-half" required> */}
                                 <div onChange={(e) => setCurrentRating(e)} className="rating rating-lg rating-half" required>
                                     <input type="radio" name="rating-10" value="0" className="rating-hidden"/>
                                     <input type="radio" name="rating-10" value="0.5" className="mask mask-heart bg-primary mask-half-1"/>
@@ -72,13 +71,13 @@ function ReviewForm({game}) {
                                     <input type="radio" name="rating-10" value="5" className="mask mask-heart bg-info mask-half-2" />
                                 </div>
 
-                                <select onChange={(e) => setPlatformSelection(e.target.value)} className="select select-bordered w-full max-w-xs" required>
-                                    <option disabled selected>Platform played on:</option>
+                                <select onChange={(e) => setPlatformSelection(e.target.value)} className="select select-bordered w-full max-w-xs" defaultValue="" required>
+                                    <option disabled value="">Platform played on:</option>
                                     {platform_options}
                                 </select>
                             </div>
                             
-                            <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered h-72" placeholder="Write your review here!"></textarea>
+                            <textarea onChange={(e) => setReview(e.target.value)} value={review} className="textarea textarea-bordered h-72" placeholder="Write your review here!" required></textarea>
 
                             <div className="card-actions justify-center">
                                 <button type="submit" onClick={(e) => handleSubmitReview(e)} className="btn btn-primary">Submit Review</button>

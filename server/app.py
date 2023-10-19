@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from flask import request, session, jsonify
-from flask_restful import Resource, reqparse
+from flask import request, session
+from flask_restful import Resource
 import requests
 
 from config import app, db, api, API_KEY
@@ -25,9 +25,6 @@ class ListById(Resource):
     def patch(self, id):
         list = GameList.find_by_id(id)
         req = request.get_json()
-
-        print(list)
-        print(req)
 
         if list:
             try:
@@ -409,7 +406,7 @@ class CheckSession(Resource):
             return {"message": "401 Unauthorized"}, 401
 
 
-class UserName(Resource):
+class UserReview(Resource):
     def get(self, id):
         user = User.query.filter(User.id == id).first()
 
@@ -469,7 +466,7 @@ api.add_resource(Signup, "/signup")
 api.add_resource(Login, "/login")
 api.add_resource(Logout, "/logout")
 api.add_resource(CheckSession, "/check-session")
-api.add_resource(UserName, "/user/<int:id>")
+api.add_resource(UserReview, "/user/<int:id>")
 api.add_resource(UserLists, "/user-lists/<int:id>")
 api.add_resource(EditListItem, "/edit-item/<int:api_id>")
 

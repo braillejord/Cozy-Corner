@@ -14,7 +14,6 @@ function Game() {
     const [gameAdded, setGameAdded] = useState(false)
     const [error, setError] = useState()
     const [display, setDisplay] = useState(false)
-    const [hltb, setHltb] = useState()
     const {api_id} = useParams();
     const {user} = useContext(UserContext)
 
@@ -35,6 +34,7 @@ function Game() {
             }
         })
     }, [])
+
 
     if (!game) {
         return <p className="pt-5">Loading...</p>
@@ -184,11 +184,11 @@ function Game() {
                 </div>
             </div>
 
-            {/* how long to beat information in a card */}
-            <HLTB game={game.name} />
-            
             {/* review form in a card */}
             {reviewForm ? <ReviewForm game={game} /> : null}
+
+            {/* how long to beat information in a card */}
+            <HLTB game={game.name} />
             
             {/* game description */}
             <div className="card bg-neutral-content shadow-xl">

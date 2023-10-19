@@ -33,7 +33,7 @@ function AllReviews() {
     let sorted_reviews = reviews.sort((a, b) => a.rating - b.rating)
 
     let rendered_reviews = sorted_reviews.map((review) => (        
-        <tr onClick={() => history.push(`/reviews/${review.id}`)}>
+        <tr onClick={() => history.push(`/reviews/${review.id}`)} style={{cursor: 'pointer'}}>
                 <th>{review.game_name}</th>
                 <td>{review.platform}</td>
                 <td><RatingCircle rating={review.rating}/></td>
@@ -46,7 +46,7 @@ function AllReviews() {
     }
 
     let rendered_platforms = platforms.results.map((platform) => (
-        <li><a onClick={filterByPlatform} name={platform.name}>{platform.name}</a></li>
+        <li><a onClick={filterByPlatform} key={platform.id} name={platform.name}>{platform.name}</a></li>
     ))
 
     function filterByRating(e) {
@@ -101,6 +101,7 @@ function AllReviews() {
                             <li><a onClick={filterByRating} name="2">2+</a></li>
                             <li><a onClick={filterByRating} name="3">3+</a></li>
                             <li><a onClick={filterByRating} name="4">4+</a></li>
+                            <li><a onClick={filterByRating} name="5">5</a></li>
                         </ul>
                     </div>
 
@@ -126,7 +127,7 @@ function AllReviews() {
                     </tr>
                     </thead>
                     <tbody>
-                        {filteredReviews 
+                        {filteredReviews
                         ? filteredReviews.filter((review) => searchInput ? review.props.children[0].props.children.toLowerCase().includes(searchInput.toLowerCase()) : true) 
                         : rendered_reviews.filter((review) => searchInput ? review.props.children[0].props.children.toLowerCase().includes(searchInput.toLowerCase()) : true)
                         }

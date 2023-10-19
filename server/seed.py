@@ -50,7 +50,7 @@ def create_reviews():
     reviews = []
     platforms = [
         "PlayStation 5",
-        "Xbox Series X/S",
+        "Xbox Series S/X",
         "Nintendo Switch",
         "PlayStation 4",
         "Xbox One",
@@ -78,7 +78,7 @@ def create_reviews():
             platform=choice([platform for platform in platforms]),
             rating=choice([rating for rating in ratings]),
             review=text_with_paras,
-            game_name=fake.name(),
+            game_name=fake.company(),
         )
 
         reviews.append(r)

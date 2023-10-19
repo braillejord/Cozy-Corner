@@ -51,7 +51,6 @@ function SignupForm({setSignup}) {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form className="card-body" onSubmit={onSubmit}>
-                    {display && error ? <p className="label-text text-error">{error}</p> : null}
                     <div className="form-control">
                     <label className="label">
                         <span className="label-text">Username</span>
@@ -73,6 +72,7 @@ function SignupForm({setSignup}) {
                         <a onClick={() => setSignup(false)} className="label-text-alt link link-hover">Have an account? Log in!</a>
                     </label>
                     </div>
+                    {display && error ? <p className="label-text text-error">{error}</p> : null}
                     <div className="form-control mt-6">
                     <button type="submit" className="btn btn-primary">Sign Up</button>
                     </div>
