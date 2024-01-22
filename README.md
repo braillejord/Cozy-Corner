@@ -4,7 +4,7 @@ Cozy Corner is a web application created with React and Python that allows users
 
 ## Features
 
-### My Corner Page
+### My Corner
 
 - **Personalized Game Lists:** Create game lists with custom names such as "Owned," "Backlog," and "Wishlist."
 - **Color Customization:** Change the color of the game list card for a personalized touch.
@@ -12,7 +12,9 @@ Cozy Corner is a web application created with React and Python that allows users
 - **Game Deletion:** Easily delete games from a list.
 - **List Management:** Delete entire lists or navigate to a game search page ('Find a Game') from inside a list.
 
-### Games Page
+<img width="600" alt="MyCorner" src="https://github.com/braillejord/phase-5-project/assets/43306719/bfe6ec12-ffce-456f-8acf-b5b3ddaad44c">
+
+### All Games
 
 - **Game Cards:** View game cards with titles and images from an API.
 - **Search Functionality:** Search for games by name.
@@ -20,12 +22,16 @@ Cozy Corner is a web application created with React and Python that allows users
 - **Howlongtobeat Integration:** View average gameplay times from the Howlongtobeat API.
 - **Add to Lists:** Add games to your personalized game lists or write a review directly from the game details page.
 
-### Reviews Page
+<img width="600" alt="GameDetails" src="https://github.com/braillejord/phase-5-project/assets/43306719/cb6ef4a7-cdeb-42fd-97d8-92117b63740a">
+
+### All Reviews
 
 - **Review Overview:** See game reviews from other users.
 - **Search Functionality:** Search for reviews by game name.
 - **Filtering Options:** Filter reviews by rating and platform.
 - **Detailed Review View:** Click into a review to see the entire review along with options to edit or delete.
+
+<img width="600" alt="GameReview" src="https://github.com/braillejord/phase-5-project/assets/43306719/c8406f8b-d486-48ae-a08d-fc0d08e17a6c">
 
 ## Technologies Used
 
