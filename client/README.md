@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# Cozy Corner
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cozy Corner is a web application created with React and Python that allows users to organize their video game collection digitally, discover new video games, and connect with fellow players through reviews. Please note that you cannot play the video games on the website; it serves as a platform for managing and reviewing your gaming experience.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### My Corner Page
 
-### `npm start`
+- **Personalized Game Lists:** Create game lists with custom names such as "Owned," "Backlog," and "Wishlist."
+- **Color Customization:** Change the color of the game list card for a personalized touch.
+- **Detailed List View:** Switch to a details view of a list, displaying a table with game titles and checkboxes for 'Currently Playing,' 'Played,' 'Finished,' and 'Endless.'
+- **Game Deletion:** Easily delete games from a list.
+- **List Management:** Delete entire lists or navigate to a game search page ('Find a Game') from inside a list.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Games Page
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Game Cards:** View game cards with titles and images from an API.
+- **Search Functionality:** Search for games by name.
+- **Detailed Game View:** Click into a game to see detailed information including title, release date, ESRB rating, description, developer(s), platform(s), publisher(s), genre(s), tag(s), and available stores.
+- **Howlongtobeat Integration:** View average gameplay times from the Howlongtobeat API.
+- **Add to Lists:** Add games to your personalized game lists or write a review directly from the game details page.
 
-### `npm test`
+### Reviews Page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Review Overview:** See game reviews from other users.
+- **Search Functionality:** Search for reviews by game name.
+- **Filtering Options:** Filter reviews by rating and platform.
+- **Detailed Review View:** Click into a review to see the entire review along with options to edit or delete.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Frontend:**
+  - React
+  - React Router
+  - Tailwind CSS
+  - daisyUI
+  - date-fns
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Backend:**
+  - Python
+  - Flask
+  - SQLAlchemy
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **APIs:**
+  - Giant Bomb API (for game details)
+  - Howlongtobeat API (for average gameplay times)
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to explore, organize your game collection, and share your gaming experiences with the Cozy Corner community!

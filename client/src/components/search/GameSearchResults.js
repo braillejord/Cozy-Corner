@@ -29,7 +29,7 @@ function GameSearchResults({searchInput, setSearchInput}) {
             <NavLink to={"/search-games"}>
                 <button className="btn btn-primary mt-5">Back to All Games</button>
             </NavLink>
-            <h1 className="text-5xl font-semibold text-center">Search Results</h1>
+            <h1 className="text-4xl font-semibold text-center">Search Results</h1>
             <div class="flex flex-wrap gap-8 justify-center">{rendered_games}</div>
         </>
     )

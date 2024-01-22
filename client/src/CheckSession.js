@@ -15,15 +15,13 @@ function CheckSession() {
         .then((r) => {
             if (r.ok) {
                 r.json().then((user) => setUser(user)).then(() => setLoading(false))
-            } else {
-
             }
         })
-    }, [])
+    }, [setUser])
 
     console.log(user)
 
-    if (loading) return <LoadingScreen />
+    // if (loading) return <LoadingScreen />
 
     if (user) {
         return <Main/>

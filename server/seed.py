@@ -59,8 +59,45 @@ def create_reviews():
         "PC",
     ]
     ratings = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
+    game_names = [
+        "Donut County",
+        "Disney Dreamlight Valley",
+        "Capybara Spa",
+        "Fossil Corner",
+        "Coffee Talk",
+        "Firewatch",
+        "Lake",
+        "Mail Time",
+        "A Little to the Left",
+        "Potion Permit",
+        "Animal Crossing: New Horizons",
+        "Stardew Valley",
+        "Monument Valley",
+        "Celeste",
+        "The Sims 2",
+        "The Sims 3",
+        "The Sims 4",
+        "Horizon Forbidden West",
+        "Kingdom Hearts",
+        "Hogwarts Legacy",
+        "Stray",
+        "Horizon Zero Dawn",
+        "What the Golf?",
+        "The Legend of Zelda: Breath of the Wild",
+        "The Legend of Zelda: Tears of the Kingdom",
+        "The Legend of Zelda: Ocarina of Time",
+        "The Legend of Zelda: Majora's Mask",
+        "Minecraft",
+        "Human: Fall Flat",
+        "Goat Simulator",
+        "Overcooked",
+        "Overcooked! 2",
+        "Overcooked! All You Can Eat",
+        "It Takes Two",
+        "Sackboy: A Big Adventure",
+    ]
 
-    for _ in range(70):
+    for _ in range(200):
         num_paragraphs = 5
         paragraphs = []
 
@@ -78,7 +115,7 @@ def create_reviews():
             platform=choice([platform for platform in platforms]),
             rating=choice([rating for rating in ratings]),
             review=text_with_paras,
-            game_name=fake.company(),
+            game_name=choice([name for name in game_names]),
         )
 
         reviews.append(r)
@@ -91,17 +128,17 @@ def create_gamelists():
 
     gl1 = GameList(
         user_id=1,
-        name="Owned",
+        name="owned",
     )
 
     gl2 = GameList(
         user_id=1,
-        name="Backlog",
+        name="backlog",
     )
 
     gl3 = GameList(
         user_id=1,
-        name="Wishlist",
+        name="wishlist",
     )
 
     gamelists = [gl1, gl2, gl3]
